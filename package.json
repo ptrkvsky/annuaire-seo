@@ -13,10 +13,29 @@
   },
   "dependencies": {
     "@astrojs/node": "^5.0.3",
+    "@astrojs/react": "^2.0.2",
     "@astrojs/vercel": "^3.0.1",
     "@auth/core": "latest",
+    "@portabletext/react": "^2.0.1",
+    "@sanity/client": "^4.0.1",
+    "@sanity/portable-text-editor": "^3.3.1",
     "astro": "^2.0.6",
     "auth-astro": "^1.0.5",
+    "draft-js": "^0.11.7",
+    "install": "^0.13.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-quill": "^2.0.0",
+    "slate": "^0.90.0",
+    "slate-history": "^0.86.0",
+    "slate-react": "^0.90.0",
     "vitest": "^0.20.3"
+  },
+  "devDependencies": {
+    "@types/draft-js": "^0.11.10",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/react-draft-wysiwyg": "^1.13.4"
   }
 }

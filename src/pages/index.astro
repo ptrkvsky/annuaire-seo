@@ -5,6 +5,46 @@ import { Auth, SignIn, SignOut } from 'auth-astro/components';
 import { authOpts } from './api/auth/[...astroAuth]';
 ---
 
+<script>
+  function handleClick() {
+    fetch(`/api/save-form`, {
+      method: 'POST',
+      body: JSON.stringify({ email: 'johan.petrikovsky@gmail.com' }),
+      headers: new Headers({
+        'Content-Type': 'application/json; charset=UTF-8',
+      }),
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+        } else {
+          return response.json();
+        }
+      })
+      .then((result) => {
+        if (result) {
+          // setHasError(false);
+          // setIsSuccess(true);
+        }
+      })
+      .catch((err) => {
+        console.error(
+          '👨‍🚒 Une erreur est survenue dans useContactMutation',
+          err
+        );
+      })
+      .finally(() => {
+        console.log('ifnally');
+      });
+  }
+
+  const button = document.querySelector('#button');
+
+  button &&
+    button.addEventListener('click', () => {
+      handleClick();
+    });
+</script>
+
 <Layout title="Welcome to Astro Auth">
   <Auth authOpts={authOpts}>
     {
@@ -15,10 +55,11 @@ import { authOpts } from './api/auth/[...astroAuth]';
             <a href="/protected">Protected Route</a>
           </p>
 
-          <SignIn provider="google">Connexion avec google</SignIn>
+          <SignIn provider="github">Connexion avec google</SignIn>
           <SignOut>Logout</SignOut>
+          <button id="button">send</button>
           <p>
-            {session ? `Logged in as ${session.user?.name}` : 'Not logged in'}
+            {session ? `Logged in as ${session.user?.email}` : 'Not logged in'}
           </p>
         </main>
       )
