@@ -16,8 +16,6 @@ import { authOpts } from './api/auth/[...astroAuth]';
           </p>
 
           <SignIn provider="google">Connexion avec google</SignIn>
-          <SignIn provider="discord">Connexion avec discord</SignIn>
-          <SignIn provider="github">Connexion avec github</SignIn>
           <SignOut>Logout</SignOut>
           <p>
             {session ? `Logged in as ${session.user?.name}` : 'Not logged in'}
