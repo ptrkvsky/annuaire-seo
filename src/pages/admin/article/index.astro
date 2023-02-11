@@ -1,14 +1,7 @@
 ---
-import { getSession } from 'auth-astro';
-import FormArticle from '../../../components/FormArticle';
-import { protectRoute } from '../../../functions/protectRoute.astro';
-import Layout from '../../../layouts/Layout.astro';
-import { getCategories } from '../../../services/categorie/getCategories';
-import { authOpts } from '../../api/auth/[...astroAuth]';
-
-// let session = await getSession(Astro.request, authOpts);
-// protectRoute();
-
+import FormArticle from '@/components/FormArticle';
+import Layout from '@/components/Layout.astro';
+import { getCategories } from '@/services/categorie/getCategories';
 const categories = await getCategories();
 ---
 
