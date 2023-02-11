@@ -1,68 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import type { Session } from '@auth/core/types';
-import { Auth, SignIn, SignOut } from 'auth-astro/components';
-import { authOpts } from './api/auth/[...astroAuth]';
+import { getArticles } from '../services/article/getArticles';
+
+const articles = await getArticles();
 ---
 
-<script>
-  function handleClick() {
-    fetch(`/api/save-form`, {
-      method: 'POST',
-      body: JSON.stringify({ email: 'johan.petrikovsky@gmail.com' }),
-      headers: new Headers({
-        'Content-Type': 'application/json; charset=UTF-8',
-      }),
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-        } else {
-          return response.json();
-        }
-      })
-      .then((result) => {
-        if (result) {
-          // setHasError(false);
-          // setIsSuccess(true);
-        }
-      })
-      .catch((err) => {
-        console.error(
-          '👨‍🚒 Une erreur est survenue dans useContactMutation',
-          err
-        );
-      })
-      .finally(() => {
-        console.log('ifnally');
-      });
-  }
-
-  const button = document.querySelector('#button');
-
-  button &&
-    button.addEventListener('click', () => {
-      handleClick();
-    });
-</script>
-
 <Layout title="Welcome to Astro Auth">
-  <Auth authOpts={authOpts}>
+  <h1>Article invité.</h1>
+  <p>Bienvenue à bord</p>
+  <section>
     {
-      (session: Session | null) => (
-        <main>
-          <h1>Astro + AuthJS</h1>
-          <p>
-            <a href="/protected">Protected Route</a>
-          </p>
-
-          <SignIn provider="github">Connexion avec google</SignIn>
-          <SignOut>Logout</SignOut>
-          <button id="button">send</button>
-          <p>
-            {session ? `Logged in as ${session.user?.email}` : 'Not logged in'}
-          </p>
-        </main>
-      )
+      articles
+        .filter((article) => article.isActive)
+        .map((article) => (
+          <>
+            <a href={`/article/${article.slug.current}`}>{article.title}</a>
+            <br />
+          </>
+        ))
     }
-  </Auth>
+  </section>
 </Layout>

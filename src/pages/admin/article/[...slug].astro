@@ -1,0 +1,19 @@
+---
+import FormArticle from '@/components/FormArticle';
+import Layout from '@/components/Layout.astro';
+import { getArticleBySlug } from '@/services/article/getArticleBySlug';
+import { getCategories } from '@/services/categorie/getCategories';
+
+const { slug } = Astro.params;
+
+const article = slug && (await getArticleBySlug(slug));
+if (!article) {
+  return Astro.redirect('/404');
+}
+const categories = await getCategories();
+---
+
+<Layout title="Ajouter un article">
+  <h1>Editer votre article</h1>
+  <FormArticle article={article} categories={categories} client:only="react" />
+</Layout>

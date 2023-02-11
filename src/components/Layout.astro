@@ -1,0 +1,53 @@
+---
+import { getSession } from 'auth-astro';
+import { SignOut } from 'auth-astro/components';
+import { authOpts } from '../pages/api/auth/[...astroAuth]';
+
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const isAdminRoute = Astro.url.pathname.includes('/admin/');
+let session = await getSession(Astro.request, authOpts);
+let accessGranted = true;
+
+if (isAdminRoute && !session) {
+  accessGranted = false;
+}
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta name="robots" content="noindex, follow" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Accueil</a>
+
+        {
+          session && (
+            <>
+              <a href="/admin/article">Ajouter un article</a>
+              <SignOut>Logout</SignOut>
+            </>
+          )
+        }
+        {!session && <a href="/connexion">Connexion</a>}
+      </nav>
+    </header>
+    {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
+  </body>
+</html>
+<style is:global>
+  html {
+    font-family: system-ui, sans-serif;
+  }
+</style>

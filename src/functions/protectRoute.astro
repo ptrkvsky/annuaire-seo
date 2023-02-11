@@ -1,0 +1,12 @@
+---
+import { getSession } from 'auth-astro';
+import { authOpts } from '../pages/api/auth/[...astroAuth]';
+
+export async function protectRoute() {
+  let session = await getSession(Astro.request, authOpts);
+
+  if (!session) {
+    return Astro.redirect('/');
+  }
+}
+---

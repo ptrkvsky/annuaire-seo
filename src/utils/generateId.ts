@@ -1,14 +1,16 @@
 const generateId = (length: number) => {
-  if (length && typeof length === 'number' && length > 0) {
-    let result = ``;
-    const characters = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`;
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
+  let lengthPos = length;
+  if (length < 0 || length === 0) {
+    lengthPos = 10;
   }
-  return undefined;
+
+  let result = ``;
+  const characters = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`;
+  const charactersLength = characters.length;
+  for (let i = 0; i < lengthPos; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 };
 
 export default generateId;
