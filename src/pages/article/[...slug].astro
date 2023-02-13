@@ -5,7 +5,8 @@ import { getArticleBySlug } from '@/services/article/getArticleBySlug';
 
 const { slug } = Astro.params;
 
-const article = slug && (await getArticleBySlug(slug));
+const article = slug && (await getArticleBySlug(slug, true));
+
 if (!article) {
   return Astro.redirect('/404');
 }

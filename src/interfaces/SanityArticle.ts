@@ -17,5 +17,5 @@ export interface SanityArticle {
   content: any[];
   slug: SanitySlug;
   title: string;
-  isActive: boolean;
+  isActive?: boolean;
 }

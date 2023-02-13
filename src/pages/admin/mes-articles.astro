@@ -1,0 +1,38 @@
+---
+import Layout from '@/components/Layout.astro';
+import { getArticles } from '@/services/article/getArticles';
+import { getSession } from 'auth-astro';
+import { authOpts } from '@/pages/api/auth/[...astroAuth]';
+import { getArticlesUser } from '@/services/article/getArticlesUser';
+import { getUserByMail } from '@/services/user/getUserByMail';
+
+let session = await getSession(Astro.request, authOpts);
+
+if (!session?.user?.email) {
+  return Astro.redirect('/');
+}
+
+const sanityUser = await getUserByMail(session.user.email);
+
+if (!sanityUser?._id) {
+  return Astro.redirect('/');
+}
+
+const articles = await getArticlesUser(sanityUser._id);
+---
+
+<Layout title="Admin - Mes articles">
+  <h1>Mes articles</h1>
+  <p>Liste de mes articles</p>
+  <section>
+    {
+      articles.map((article) => (
+        <>
+          {article.title} :{' '}
+          <a href={`/admin/article/${article.slug.current}`}>EDIT</a>
+          <br />
+        </>
+      ))
+    }
+  </section>
+</Layout>

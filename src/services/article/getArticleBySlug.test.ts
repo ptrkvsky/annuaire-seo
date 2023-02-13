@@ -3,7 +3,7 @@ import { getArticleBySlug } from './getArticleBySlug';
 // Edit an assertion and save to see HMR in action
 
 test('getArticleBySlug(article-test)', async () => {
-  const article = await getArticleBySlug('article-test', false);
+  const article = await getArticleBySlug('article-test');
   expect(article?.slug.current).toBe('article-test');
 });
 
