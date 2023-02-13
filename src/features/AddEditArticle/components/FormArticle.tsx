@@ -31,7 +31,7 @@ const FormArticle = ({ categories, article }: Props) => {
     articleId: article?._id,
     title: article?.title || '',
     articleCategory: article?.articleCategory._ref || '',
-    content: contentHTML.replace('<p><br></p>', '') || '',
+    content: contentHTML || '',
   });
 
   const mutation = useMutation((dataToPost: IFormArticle) => {
@@ -46,19 +46,8 @@ const FormArticle = ({ categories, article }: Props) => {
 
   function postArticle(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setFormState((formState) => {
-      return {
-        ...formState,
-        content: formState.content
-          .replace('<p><br></p>', '')
-          .replace('<p><br></p>', ''),
-      };
-    }); //quill workaround
 
-    const blockContent = htmlToBlocks(
-      formState.content.replace('<p><br></p>', ''),
-      blockContentType
-    );
+    const blockContent = htmlToBlocks(formState.content, blockContentType);
     const dataToPost: IFormArticle = {
       articleId: article?._id,
       title: formState.title,

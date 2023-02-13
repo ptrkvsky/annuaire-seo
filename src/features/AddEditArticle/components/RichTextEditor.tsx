@@ -17,7 +17,7 @@ const RichTextEditor = ({ formState, setFormState }: Props) => {
   useEffect(() => {
     setFormState({
       ...formState,
-      content: value.replace('<p><br></p>', ''),
+      content: value,
     });
   }, [value]);
 
