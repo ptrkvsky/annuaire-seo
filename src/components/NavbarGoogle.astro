@@ -1,37 +1,49 @@
 ---
+import type { INavItem } from '@/interfaces/INavItem';
 import type { SanityCategory } from '@/interfaces/SanityCategory';
 import { getCategories } from '@/services/categorie/getCategories';
 
 const categories = await getCategories();
 
 function createNavigation(categories: SanityCategory[]) {
-  const roots = categories.filter((c) => !c.parent); // top-level categories
-  const createNode: any = (category: SanityCategory) => {
+  const roots = categories.filter((category) => !category.parent); // top-level categories
+  const createNode = (category: SanityCategory): INavItem => {
     const children = categories.filter((c) => c.parent?._ref === category._id);
     if (children.length === 0) {
-      return {
+      const navItem: INavItem = {
         label: category.title,
-        url: `/category/${category.slug.current}`,
+        url: `/categorie/${category.slug.current}`,
       };
+      return navItem;
     } else {
-      return {
+      const navItem = {
         label: category.title,
         children: children.map((child) => createNode(child)),
       };
+      return navItem;
     }
   };
   return roots.map((root) => createNode(root));
 }
 
-const nav = createNavigation(categories);
+const navItems: INavItem[] = createNavigation(categories);
 ---
 
 <nav>
   <ul>
     {
-      categories.map((categorie) => (
+      navItems.map((navItem) => (
         <li>
-          <a href={`/categorie/${categorie.slug.current}`}>{categorie.title}</a>
+          <a href={`${navItem.url || '#'}`}>{navItem?.label}</a>
+          {navItem.children && (
+            <ul>
+              {navItem.children.map((subNavItem) => (
+                <li>
+                  <a href={subNavItem.url}>{subNavItem.label}</a>
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
       ))
     }

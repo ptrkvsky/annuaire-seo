@@ -30,7 +30,7 @@ if (isAdminRoute && !session) {
   </head>
   <body>
     <header>
-      <NavbarAdmin client:load session={session} />
+      <NavbarAdmin session={session} />
       <NavbarGoogle />
     </header>
     {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
