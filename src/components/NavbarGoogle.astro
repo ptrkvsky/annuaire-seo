@@ -7,6 +7,7 @@ const categories = await getCategories();
 
 function createNavigation(categories: SanityCategory[]) {
   const roots = categories.filter((category) => !category.parent); // top-level categories
+
   const createNode = (category: SanityCategory): INavItem => {
     const children = categories.filter((c) => c.parent?._ref === category._id);
     if (children.length === 0) {
@@ -23,6 +24,7 @@ function createNavigation(categories: SanityCategory[]) {
       return navItem;
     }
   };
+
   return roots.map((root) => createNode(root));
 }
 
