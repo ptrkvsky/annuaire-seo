@@ -1,7 +1,7 @@
 ---
 import { getSession } from 'auth-astro';
-import { SignOut } from 'auth-astro/components';
 import { authOpts } from '../pages/api/auth/[...astroAuth]';
+import NavbarAdmin from './NavbarAdmin.astro';
 
 export interface Props {
   title: string;
@@ -29,20 +29,7 @@ if (isAdminRoute && !session) {
   </head>
   <body>
     <header>
-      <nav>
-        <a href="/">Accueil</a>
-
-        {
-          session && (
-            <>
-              <a href="/admin/article">Ajouter un article</a>
-              <a href="/admin/mes-articles">Mes articles</a>
-              <SignOut>Logout</SignOut>
-            </>
-          )
-        }
-        {!session && <a href="/connexion">Connexion</a>}
-      </nav>
+      <NavbarAdmin client:load session={session} />
     </header>
     {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
   </body>

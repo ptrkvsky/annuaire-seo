@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
 import 'react-quill/dist/quill.snow.css';
 import { htmlToBlocks } from '@sanity/block-tools';
-import schemaArticle from '../../../schemas/article.schema';
+import schemaArticle from '@/schemas/article.schema';
 import type { SanityCategory } from '@/interfaces/SanityCategory';
 import type { SanityArticle } from '@/interfaces/SanityArticle';
 import { toHTML } from '@portabletext/to-html';
 import type { IFormArticle } from '@/interfaces/FomArticle';
-import { useMutation } from 'react-query';
-import SelectCategory from './SelectCategory';
+import SelectCategory from '@/features/AddEditArticle/components/SelectCategory';
 import type { IFormState } from '../interfaces/IFormState';
 import BlockContent from './BlockContent';
+import countWord from '@/utils/countWord';
+import CONST from '@/config/CONST';
+import type { IErrorForm } from '../interfaces/IErrorForm';
+import checkError from '../functions/checkError';
+import useError from '../hooks/useError';
 
 const blockContentType = schemaArticle
   .get('article')
@@ -34,6 +39,10 @@ const FormArticle = ({ categories, article }: Props) => {
     content: contentHTML || '',
   });
 
+  console.log(formState);
+
+  const [error, setError] = useState<IErrorForm>();
+
   const mutation = useMutation((dataToPost: IFormArticle) => {
     return fetch(`/api/save-form`, {
       method: 'POST',
@@ -44,8 +53,15 @@ const FormArticle = ({ categories, article }: Props) => {
     });
   });
 
+  const cleanText = formState.content.replace(/<\/?[^>]+(>|$)/g, '').trim();
+  const isDisabled =
+    countWord(cleanText) < CONST.minWordsForText || mutation.isLoading;
+
   function postArticle(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isDisabled) {
+      return false;
+    }
 
     const blockContent = htmlToBlocks(formState.content, blockContentType);
     const dataToPost: IFormArticle = {
@@ -78,13 +94,14 @@ const FormArticle = ({ categories, article }: Props) => {
         setFormState={setFormState}
       />
       <BlockContent setFormState={setFormState} formState={formState} />
-      <button type="submit" disabled={mutation.isLoading}>
-        Submit
+
+      <button type="submit" disabled={isDisabled}>
+        Envoyer
       </button>
+
       {mutation?.data && mutation?.data?.status !== 200 ? (
         <div>Une erreur est survenue</div>
       ) : null}
-
       {mutation?.data && mutation?.data?.status === 200 ? (
         <div>Congratulations</div>
       ) : null}

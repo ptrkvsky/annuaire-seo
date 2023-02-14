@@ -1,4 +1,4 @@
-import { SanityArticle } from './../../../interfaces/SanityArticle';
+import type { SanityArticle } from '@/interfaces/SanityArticle';
 import type { APIContext, APIRoute } from 'astro';
 import { getSession } from 'auth-astro';
 import sanityClient from '@/libs/sanity/sanityClient';
@@ -9,7 +9,7 @@ import { createUser } from '@/services/user/createUser';
 import { deleteUser } from '@/services/user/deleteUser';
 import type { IFormArticle } from '@/interfaces/FomArticle';
 
-import { slugify } from '@/utils/slugify';
+import slugify from '@/utils/slugify';
 import { getElementById } from '@/services/article/getElementById';
 
 export async function get({ params }: APIContext) {

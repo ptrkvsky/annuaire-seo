@@ -1,4 +1,6 @@
-import type { IFormState } from '../interfaces/IFormState';
+import CONST from '@/config/CONST';
+import type { IFormState } from '@/features/AddEditArticle/interfaces/IFormState';
+import countWord from '@/utils/countWord';
 import RichTextEditor from './RichTextEditor';
 
 interface Props {
@@ -8,12 +10,22 @@ interface Props {
 
 function BlockContent({ formState, setFormState }: Props) {
   const cleanText = formState.content.replace(/<\/?[^>]+(>|$)/g, '').trim();
-  const contentLength = cleanText.length;
+  const nbWords = countWord(cleanText);
 
   return (
     <div>
-      <label>longueur : {contentLength}</label>
+      <p>
+        Vous avez saisi <strong>{nbWords}</strong> mot{nbWords > 1 && 's'}, ils
+        vous en faut au moins {CONST.minWordsForText}
+      </p>
       <RichTextEditor formState={formState} setFormState={setFormState} />
+
+      {countWord(cleanText) < CONST.minWordsForText && (
+        <p>
+          Il manque encore {CONST.minWordsForText - countWord(cleanText)} mots à
+          votre article{' '}
+        </p>
+      )}
     </div>
   );
 }
