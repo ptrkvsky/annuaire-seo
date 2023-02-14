@@ -39,8 +39,6 @@ const FormArticle = ({ categories, article }: Props) => {
     content: contentHTML || '',
   });
 
-  console.log(formState);
-
   const [error, setError] = useState<IErrorForm>();
 
   const mutation = useMutation((dataToPost: IFormArticle) => {

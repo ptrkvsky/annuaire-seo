@@ -1,0 +1,29 @@
+---
+import Layout from '@/components/Layout.astro';
+import getArticlesByCategoryId from '@/services/article/getArticlesByCategoryId';
+import getCategoryBySlug from '@/services/categorie/getCategoryBySlug';
+
+const { slug } = Astro.params;
+
+const category = slug && (await getCategoryBySlug(slug));
+
+if (!category) {
+  return Astro.redirect('/404');
+}
+
+const articles = await getArticlesByCategoryId(category._id);
+---
+
+<Layout title={category.title}>
+  <h1>{category.title}</h1>
+  {
+    articles.length > 0 &&
+      articles.map((article) => (
+        <>
+          <a href={`/articles/${article.slug.current}`}>{article.title}</a>
+          <br />
+        </>
+      ))
+  }
+  {articles.length === 0 && <p>pas d'articles ici</p>}
+</Layout>

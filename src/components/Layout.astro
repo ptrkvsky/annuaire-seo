@@ -2,6 +2,7 @@
 import { getSession } from 'auth-astro';
 import { authOpts } from '../pages/api/auth/[...astroAuth]';
 import NavbarAdmin from './NavbarAdmin.astro';
+import NavbarGoogle from './NavbarGoogle.astro';
 
 export interface Props {
   title: string;
@@ -30,6 +31,7 @@ if (isAdminRoute && !session) {
   <body>
     <header>
       <NavbarAdmin client:load session={session} />
+      <NavbarGoogle />
     </header>
     {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
   </body>

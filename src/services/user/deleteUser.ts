@@ -9,6 +9,4 @@ export async function deleteUser(documentId: string) {
     .catch((err) => {
       console.error('🔥 Delete failed: ', err.message);
     });
-
-  console.log('createdUser', createdUser);
 }

@@ -1,0 +1,39 @@
+---
+import type { SanityCategory } from '@/interfaces/SanityCategory';
+import { getCategories } from '@/services/categorie/getCategories';
+
+const categories = await getCategories();
+
+function createNavigation(categories: SanityCategory[]) {
+  const roots = categories.filter((c) => !c.parent); // top-level categories
+  const createNode: any = (category: SanityCategory) => {
+    const children = categories.filter((c) => c.parent?._ref === category._id);
+    if (children.length === 0) {
+      return {
+        label: category.title,
+        url: `/category/${category.slug.current}`,
+      };
+    } else {
+      return {
+        label: category.title,
+        children: children.map((child) => createNode(child)),
+      };
+    }
+  };
+  return roots.map((root) => createNode(root));
+}
+
+const nav = createNavigation(categories);
+---
+
+<nav>
+  <ul>
+    {
+      categories.map((categorie) => (
+        <li>
+          <a href={`/categorie/${categorie.slug.current}`}>{categorie.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -11,7 +11,6 @@ export async function getArticlesUser(refUser: string) {
   const query = `*[_type == "article" && articleUser._ref == $refUser]`;
   const params = { refUser };
   const client = sanityClient(sanityConfig);
-  console.log(query, params);
   const articles = await client.fetch<SanityArticle[]>(query, params);
 
   return articles;
