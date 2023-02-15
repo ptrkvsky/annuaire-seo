@@ -3,11 +3,15 @@ import type { INavItem } from '@/interfaces/INavItem';
 import type { SanityCategory } from '@/interfaces/SanityCategory';
 import { getCategories } from '@/services/categorie/getCategories';
 
+export interface Props {
+  categoriesMenu?: SanityCategory[];
+}
+
+const { categoriesMenu } = Astro.props as Props;
 const categories = await getCategories();
 
 function createNavigation(categories: SanityCategory[]) {
   const roots = categories.filter((category) => !category.parent); // top-level categories
-
   const createNode = (category: SanityCategory): INavItem => {
     const children = categories.filter((c) => c.parent?._ref === category._id);
     if (children.length === 0) {
@@ -28,10 +32,23 @@ function createNavigation(categories: SanityCategory[]) {
   return roots.map((root) => createNode(root));
 }
 
-const navItems: INavItem[] = createNavigation(categories);
+function getCustomMenu(categories: SanityCategory[]) {
+  return categories.map((category) => {
+    const navItem: INavItem = {
+      label: category.title,
+      url: `/categorie/${category.slug.current}`,
+    };
+    return navItem;
+  });
+}
+
+const navItems: INavItem[] = categoriesMenu
+  ? getCustomMenu(categoriesMenu)
+  : createNavigation(categories);
 ---
 
 <nav>
+  MENU
   <ul>
     {
       navItems.map((navItem) => (
@@ -50,4 +67,5 @@ const navItems: INavItem[] = createNavigation(categories);
       ))
     }
   </ul>
+  FIN MENU
 </nav>

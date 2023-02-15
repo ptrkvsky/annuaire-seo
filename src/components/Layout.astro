@@ -1,4 +1,5 @@
 ---
+import type { SanityCategory } from '@/interfaces/SanityCategory';
 import { getSession } from 'auth-astro';
 import { authOpts } from '../pages/api/auth/[...astroAuth]';
 import NavbarAdmin from './NavbarAdmin.astro';
@@ -6,9 +7,10 @@ import NavbarGoogle from './NavbarGoogle.astro';
 
 export interface Props {
   title: string;
+  categoriesMenu?: SanityCategory[];
 }
 
-const { title } = Astro.props;
+const { title, categoriesMenu } = Astro.props as Props;
 const isAdminRoute = Astro.url.pathname.includes('/admin/');
 let session = await getSession(Astro.request, authOpts);
 let accessGranted = true;
@@ -31,7 +33,7 @@ if (isAdminRoute && !session) {
   <body>
     <header>
       <NavbarAdmin session={session} />
-      <NavbarGoogle />
+      <NavbarGoogle categoriesMenu={categoriesMenu} />
     </header>
     {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
   </body>

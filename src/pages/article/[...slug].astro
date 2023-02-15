@@ -2,6 +2,10 @@
 import RenderPortableText from '@/components/RenderPortableText';
 import Layout from '@/components/Layout.astro';
 import { getArticleBySlug } from '@/services/article/getArticleBySlug';
+import { getElementById } from '@/services/article/getElementById';
+import type { SanityCategory } from '@/interfaces/SanityCategory';
+import getSisterCategories from '@/services/article/getSisterCategories';
+import { getCategoriesMenu } from '@/functions/getCategoriesMenu';
 
 const { slug } = Astro.params;
 
@@ -10,9 +14,11 @@ const article = slug && (await getArticleBySlug(slug, true));
 if (!article) {
   return Astro.redirect('/404');
 }
+
+const categoriesMenu = await getCategoriesMenu(article.articleCategory._ref);
 ---
 
-<Layout title={article.title}>
+<Layout categoriesMenu={categoriesMenu} title={article.title}>
   <h1>{article.title}</h1>
   <RenderPortableText portableText={article.content} />
 </Layout>

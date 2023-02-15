@@ -3,4 +3,5 @@ export interface IFormArticle {
   title: string;
   articleCategory: string;
   content: any[];
+  imageMain: File;
 }

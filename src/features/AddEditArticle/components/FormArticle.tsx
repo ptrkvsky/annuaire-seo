@@ -15,6 +15,7 @@ import CONST from '@/config/CONST';
 import type { IErrorForm } from '../interfaces/IErrorForm';
 import checkError from '../functions/checkError';
 import useError from '../hooks/useError';
+import SelectFile from './SelectFile';
 
 const blockContentType = schemaArticle
   .get('article')
@@ -57,16 +58,16 @@ const FormArticle = ({ categories, article }: Props) => {
 
   function postArticle(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (isDisabled) {
-      return false;
-    }
+    if (isDisabled || !formState.imageMain) return;
 
     const blockContent = htmlToBlocks(formState.content, blockContentType);
+
     const dataToPost: IFormArticle = {
       articleId: article?._id,
       title: formState.title,
       articleCategory: formState.articleCategory,
       content: blockContent,
+      imageMain: formState.imageMain,
     };
 
     mutation.mutate(dataToPost);
@@ -92,6 +93,7 @@ const FormArticle = ({ categories, article }: Props) => {
         setFormState={setFormState}
       />
       <BlockContent setFormState={setFormState} formState={formState} />
+      <SelectFile formState={formState} setFormState={setFormState} />
 
       <button type="submit" disabled={isDisabled}>
         Envoyer

@@ -1,5 +1,5 @@
 const CONST = {
-  minWordsForText: 500,
+  minWordsForText: 0,
 };
 
 export default CONST;

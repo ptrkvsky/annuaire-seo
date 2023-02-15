@@ -20,7 +20,7 @@ const articles = await getArticlesByCategoryId(category._id);
     articles.length > 0 &&
       articles.map((article) => (
         <>
-          <a href={`/articles/${article.slug.current}`}>{article.title}</a>
+          <a href={`/article/${article.slug.current}`}>{article.title}</a>
           <br />
         </>
       ))
