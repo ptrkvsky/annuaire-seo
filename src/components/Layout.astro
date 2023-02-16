@@ -31,15 +31,106 @@ if (isAdminRoute && !session) {
     <title>{title}</title>
   </head>
   <body>
+    <main>
+      {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
+    </main>
     <header>
       <NavbarAdmin session={session} />
       <NavbarGoogle categoriesMenu={categoriesMenu} />
     </header>
-    {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
+    <footer>FOOTER</footer>
   </body>
 </html>
-<style is:global>
+<style is:global lang="scss">
+  :root {
+    --title: Didone, Poppins, -apple-system, BlinkMacSystemFont, Arial Black,
+      Arial Bold, Arial, sans-serif;
+    --body: Montreal, sans-serif;
+    --body-bolor: #330b4f;
+    --dark-primary: #ca171d;
+    --light-primary: #e10061;
+    --light-background: #e1000012;
+    --main-gradient: linear-gradient(
+      90deg,
+      rgba(131, 58, 180, 1) 0%,
+      rgba(253, 29, 29, 1) 50%,
+      rgba(252, 176, 69, 1) 100%
+    );
+    --background-main: rgb(248, 248, 251);
+    --mw-desktop: 1440px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    // font-family: var(--title);
+    font-variation-settings: 'wght' 400, 'wdth' 80;
+  }
+
+  main {
+    max-width: var(--mw-desktop);
+    margin: 0 auto;
+  }
+
+  body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--body);
+    font-variation-settings: 'wght' 450;
+    font-weight: 450;
+    background-color: var(--background-main);
+  }
+  header {
+    order: -1;
+  }
+  main {
+    flex: 1;
+    width: 100%;
+  }
+  footer {
+    background-color: #000;
+    color: #fff;
+    padding: 16px;
+  }
+  * {
+    box-sizing: border-box;
+  }
+
+  a {
+    color: var(--body-color);
+  }
+
   html {
     font-family: system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  header {
+    box-shadow: 0 2px 17px rgb(0 0 0 / 7%);
+    .conteneur {
+      margin: 0 auto;
+      max-width: var(--mw-desktop);
+    }
+  }
+
+  @font-face {
+    font-family: 'Didone';
+    src: url('/fonts/didone_variable.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Montreal';
+    src: url('/fonts/montreal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
   }
 </style>

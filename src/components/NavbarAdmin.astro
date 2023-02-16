@@ -1,24 +1,97 @@
 ---
 import type { Session } from '@auth/core/types';
 import { SignOut } from 'auth-astro/components';
-
+import { Icon } from 'astro-icon';
+import { Auth, SignIn } from 'auth-astro/components';
+import { authOpts } from '@/pages/api/auth/[...astroAuth]';
 interface Props {
   session: Session | null;
 }
-
 const { session } = Astro.props as Props;
+const loginProvider =
+  import.meta.env.MODE === 'development' ? 'github' : 'google';
 ---
 
-<nav>
-  <a href="/">Accueil</a>
-  {
-    session && (
-      <>
-        <a href="/admin/article">Ajouter un article</a>
-        <a href="/admin/mes-articles">Mes articles</a>
-        <SignOut>Logout</SignOut>
-      </>
-    )
+<div class="wrapper">
+  <nav class="conteneur">
+    {
+      session ? (
+        <>
+          <div class="left-part">
+            <a class="menu-item" href="/admin/article">
+              <Icon pack="mdi" name="note-plus-outline" />
+              <span>Ajouter un article</span>
+            </a>
+            <a class="menu-item" href="/admin/mes-articles">
+              <Icon pack="mdi" name="note-check-outline" />
+              Mes articles
+            </a>
+          </div>
+          <div class="right-part">
+            <SignOut>
+              <Icon pack="mdi" name="logout" />
+              Déconnexion
+            </SignOut>
+          </div>
+        </>
+      ) : (
+        <SignIn provider={loginProvider}>
+          <Icon pack="mdi" name="account" />
+          Connexion
+        </SignIn>
+      )
+    }
+  </nav>
+</div>
+
+<style lang="scss">
+  .wrapper {
+    background-color: #141516;
+    color: #fff;
+    padding: 8px 0;
+
+    .conteneur {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .left-part {
+      display: flex;
+    }
+
+    .menu-item,
+    button {
+      display: flex;
+      align-items: end;
+      gap: 4px;
+      min-width: 160px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+
+      svg {
+        max-width: 20px;
+      }
+    }
+
+    a,
+    button {
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.2s linear;
+      &:hover {
+        color: #00ffef;
+      }
+    }
+
+    .right-part {
+      button {
+        min-width: 117px;
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
-  {!session && <a href="/connexion">Connexion</a>}
-</nav>
+</style>

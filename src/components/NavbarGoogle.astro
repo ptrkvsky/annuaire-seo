@@ -47,15 +47,15 @@ const navItems: INavItem[] = categoriesMenu
   : createNavigation(categories);
 ---
 
-<nav>
-  MENU
+<nav class="conteneur nav-user">
+  <a href="/" class="logo">Article Invité</a>
   <ul>
     {
       navItems.map((navItem) => (
         <li>
           <a href={`${navItem.url || '#'}`}>{navItem?.label}</a>
           {navItem.children && (
-            <ul>
+            <ul class="sub-menu">
               {navItem.children.map((subNavItem) => (
                 <li>
                   <a href={subNavItem.url}>{subNavItem.label}</a>
@@ -67,5 +67,54 @@ const navItems: INavItem[] = categoriesMenu
       ))
     }
   </ul>
-  FIN MENU
 </nav>
+
+<style lang="scss">
+  .nav-user {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    .logo {
+      // font-family: var(--title);
+      font-variation-settings: 'wght' 800, 'wdth' 0;
+      font-size: 24px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+    ul,
+    li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+    > ul {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      font-size: 16px;
+
+      li:hover {
+        > a {
+          color: #0024ff;
+        }
+        .sub-menu {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          padding: 16px;
+          border-radius: 16px;
+          background-color: #fff;
+          box-shadow: 0 2px 17px rgb(0 0 0 / 7%);
+        }
+      }
+
+      .sub-menu {
+        display: none;
+      }
+    }
+  }
+</style>
