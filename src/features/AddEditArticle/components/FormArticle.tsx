@@ -16,10 +16,8 @@ import type { IErrorForm } from '../interfaces/IErrorForm';
 import checkError from '../functions/checkError';
 import useError from '../hooks/useError';
 import SelectFile from './SelectFile';
-
-const blockContentType = schemaArticle
-  .get('article')
-  .fields.find((field: any) => field.name === 'content').type;
+import checkIsMinLength from '@/utils/checkIsMinLength';
+import transformHtmlToBlocks from '@/utils/transformHtmlToBlocks';
 
 interface Props {
   article?: SanityArticle;
@@ -47,30 +45,20 @@ const FormArticle = ({ categories, article }: Props) => {
     });
   });
 
-  const cleanText = formState.content.replace(/<\/?[^>]+(>|$)/g, '').trim();
-  const isDisabled =
-    countWord(cleanText) < CONST.minWordsForText || mutation.isLoading;
+  const isDisabled = !checkIsMinLength(formState.content) || mutation.isLoading;
 
   function postArticle(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (isDisabled || !formState.imageMain) return;
 
-    // const blockContent = htmlToBlocks(formState.content, blockContentType);
+    const htmlContent = transformHtmlToBlocks(formState.content);
+
     const dataToPost = new FormData();
     dataToPost.append('articleId', article?._id || '');
     dataToPost.append('title', formState.title);
     dataToPost.append('articleCategory', formState.articleCategory);
-    dataToPost.append('content', formState.content);
+    dataToPost.append('content', JSON.stringify(htmlContent));
     dataToPost.append('imageMain', formState.imageMain);
-    console.log(dataToPost);
-
-    // const dataToPost: IFormArticle = {
-    //   articleId: article?._id,
-    //   title: formState.title,
-    //   articleCategory: formState.articleCategory,
-    //   content: blockContent,
-    //   imageMain: formState.imageMain,
-    // };
 
     mutation.mutate(dataToPost);
     return;

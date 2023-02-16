@@ -12,6 +12,11 @@ import { createReadStream } from 'fs';
 
 import slugify from '@/utils/slugify';
 import { getElementById } from '@/services/article/getElementById';
+import checkIsMinLength from '@/utils/checkIsMinLength';
+import checkForm, {
+  ParamsCheckForm,
+} from '@/features/AddEditArticle/api/checkForm';
+import getFileFromField from '@/features/AddEditArticle/api/getFileFromField';
 
 export async function get({ params }: APIContext) {
   await deleteUser('newUser@gmail.com');
@@ -35,67 +40,64 @@ export const post: APIRoute = async ({ request }) => {
   }
 
   const formData = await request.formData();
-
   const postId = formData.get('articleId') || generateId(10);
   const formDataArticleId = formData.get('articleId');
-  const formDataTitle = formData.get('title');
-  const formDataArticleCategory = formData.get('articleCategory');
+  const formDataTitle = formData.get('title') as string;
+  const formDataArticleCategory = formData.get('articleCategory') as string;
+  const formDataContent = formData.get('content') as string;
+  const file = await getFileFromField(formData, 'imageMain');
 
-  const filenames = await Promise.all(
-    formData.getAll('imageMain').map(async (formDataEntryValue) => {
-      const file = formDataEntryValue as File;
-      return {
-        webkitRelativePath: file.webkitRelativePath,
-        lastModified: file.lastModified,
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        buffer: {
-          type: 'Buffer',
-          value: Array.from(new Int8Array(await file.arrayBuffer()).values()),
-        },
-      };
-    })
-  );
+  const params = {
+    formDataTitle,
+    formDataArticleCategory,
+    formDataContent,
+    file,
+  } as ParamsCheckForm;
 
-  console.log('filenames', filenames);
-  const file = Buffer.from(filenames[0].buffer.value);
+  checkForm(params);
 
   const uploadImageFromUrl = await sanityClient.instance.assets.upload(
     'image',
     file
   );
-  console.log(uploadImageFromUrl);
-  // formDataImageMain && createReadStream(formDataImageMain.path)
 
   const sanityArticle = formDataArticleId
     ? await getElementById<SanityArticle>(formDataArticleId as string)
     : undefined;
 
-  if (postId && sanityUser?._id && formDataTitle) {
-    // const slugArticle = slugify(formDataTitle as string);
-    // const newArticle: SanityArticle = {
-    //   isActive: sanityArticle?.isActive || false,
-    //   _id: postId as string,
-    //   _type: 'article',
-    //   articleCategory: {
-    //     _ref: formDataArticleCategory,
-    //     _type: 'reference',
-    //   },
-    //   articleUser: {
-    //     _ref: sanityUser._id,
-    //     _type: 'reference',
-    //   },
-    //   content: formData.content,
-    //   slug: {
-    //     _type: 'slug',
-    //     current: slugArticle,
-    //   },
-    //   title: formData.title,
-    // };
+  if (postId && sanityUser?._id && formDataTitle && uploadImageFromUrl) {
+    const slugArticle = slugify(formDataTitle as string);
+    console.log(formDataContent);
+
+    const newArticle: SanityArticle = {
+      isActive: sanityArticle?.isActive || false,
+      _id: postId as string,
+      _type: 'article',
+      articleCategory: {
+        _ref: formDataArticleCategory,
+        _type: 'reference',
+      },
+      imageMain: {
+        _type: 'image',
+        asset: {
+          _ref: uploadImageFromUrl._id,
+          _type: 'reference',
+        },
+      },
+      articleUser: {
+        _ref: sanityUser._id,
+        _type: 'reference',
+      },
+      content: JSON.parse(formDataContent) as any,
+      slug: {
+        _type: 'slug',
+        current: slugArticle,
+      },
+      title: formDataTitle,
+    };
 
     try {
-      // await sanityClient.instance.createOrReplace(newArticle);
+      await sanityClient.instance.createOrReplace(newArticle);
       return new Response(
         JSON.stringify({
           message: 'Your name was: ',

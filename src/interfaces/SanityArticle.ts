@@ -14,6 +14,13 @@ export interface SanityArticle {
     _ref: string;
     _type: 'reference';
   };
+  imageMain: {
+    _type: 'image';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+    };
+  };
   content: any[];
   slug: SanitySlug;
   title: string;
