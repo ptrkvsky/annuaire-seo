@@ -40,15 +40,10 @@ const FormArticle = ({ categories, article }: Props) => {
     content: contentHTML || '',
   });
 
-  const [error, setError] = useState<IErrorForm>();
-
-  const mutation = useMutation((dataToPost: IFormArticle) => {
+  const mutation = useMutation((dataToPost: FormData) => {
     return fetch(`/api/save-form`, {
       method: 'POST',
-      body: JSON.stringify(dataToPost),
-      headers: new Headers({
-        'Content-Type': 'application/json; charset=UTF-8',
-      }),
+      body: dataToPost,
     });
   });
 
@@ -60,17 +55,25 @@ const FormArticle = ({ categories, article }: Props) => {
     event.preventDefault();
     if (isDisabled || !formState.imageMain) return;
 
-    const blockContent = htmlToBlocks(formState.content, blockContentType);
+    // const blockContent = htmlToBlocks(formState.content, blockContentType);
+    const dataToPost = new FormData();
+    dataToPost.append('articleId', article?._id || '');
+    dataToPost.append('title', formState.title);
+    dataToPost.append('articleCategory', formState.articleCategory);
+    dataToPost.append('content', formState.content);
+    dataToPost.append('imageMain', formState.imageMain);
+    console.log(dataToPost);
 
-    const dataToPost: IFormArticle = {
-      articleId: article?._id,
-      title: formState.title,
-      articleCategory: formState.articleCategory,
-      content: blockContent,
-      imageMain: formState.imageMain,
-    };
+    // const dataToPost: IFormArticle = {
+    //   articleId: article?._id,
+    //   title: formState.title,
+    //   articleCategory: formState.articleCategory,
+    //   content: blockContent,
+    //   imageMain: formState.imageMain,
+    // };
 
     mutation.mutate(dataToPost);
+    return;
   }
 
   return (
