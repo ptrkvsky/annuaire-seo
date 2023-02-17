@@ -1,26 +1,13 @@
 ---
 import Layout from '@/components/Layout.astro';
-import TextEditor from '@/features/AddEditArticle/components/TextEditor';
+import Hero from '@/features/home/components/Hero.astro';
+import ListingArticles from '@/features/home/components/ListingArticles.astro';
 import { getArticles } from '@/services/article/getArticles';
 
 const articles = await getArticles();
 ---
 
 <Layout title="Accueil articles invités">
-  <h1>WELCOME</h1>
-  <p>Bienvenue à bord</p>
-  <p>la plateforme numéro 1 pour publier vos articles</p>
-
-  <section>
-    {
-      articles
-        .filter((article) => article.isActive)
-        .map((article) => (
-          <>
-            <a href={`/article/${article.slug.current}`}>{article.title}</a>
-            <br />
-          </>
-        ))
-    }
-  </section>
+  <Hero />
+  <ListingArticles articles={articles} />
 </Layout>
