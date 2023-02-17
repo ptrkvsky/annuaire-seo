@@ -19,6 +19,8 @@ export interface SanityArticle {
     asset: {
       _ref: string;
       _type: 'reference';
+      path?: string;
+      url?: string;
     };
   };
   content: any[];

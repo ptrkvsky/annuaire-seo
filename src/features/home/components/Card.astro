@@ -1,0 +1,76 @@
+---
+import RenderPortableText from '@/components/RenderPortableText';
+import type { SanityArticle } from '@/interfaces/SanityArticle';
+import { Image, Picture } from '@astrojs/image/components';
+
+interface Props {
+  article: SanityArticle;
+}
+
+const { article } = Astro.props;
+const content = article.content.slice(0, 1);
+const vignette = article.imageMain.asset.url;
+---
+
+<article class="card">
+  {
+    vignette && (
+      <a href={`/article/${article.slug.current}`}>
+        <Image
+          width={411}
+          height={231}
+          format="avif"
+          src={vignette}
+          alt={`illustration ${article.title}`}
+          class="vignette"
+        />
+      </a>
+    )
+  }
+  <h3 class="title">
+    <a href={`/article/${article.slug.current}`}>{article.title}</a>
+  </h3>
+  <div class="description truncate">
+    <RenderPortableText portableText={content} />
+  </div>
+</article>
+
+<style lang="scss" is:global>
+  .card {
+    .vignette {
+      filter: grayscale(1);
+      transition: all 0.15s linear;
+      box-shadow: 0 20px 35px -10px rgb(0 2 4 / 20%),
+        0 6px 4px -4px rgb(0 2 4 / 2%);
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .description {
+      line-height: 1.4;
+      font-size: 18px;
+      p {
+        margin: 0;
+      }
+    }
+
+    .title {
+      display: block;
+      margin: 20px 0;
+      font-size: 24px;
+      line-height: 28px;
+      font-weight: 400;
+      text-decoration: none;
+    }
+
+    &:hover {
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+</style>

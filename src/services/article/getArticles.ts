@@ -8,7 +8,7 @@ import { sanityConfig } from '../../config/sanityConfig';
  * @returns
  */
 export async function getArticles() {
-  const query = `*[_type == "article"]`;
+  const query = `*[_type == "article"]{title,isActive,content,slug,imageMain{asset->{path,url}}}`;
   const client = sanityClient(sanityConfig);
   const articles = await client.fetch<SanityArticle[]>(query);
 

@@ -128,6 +128,15 @@ if (isAdminRoute && !session) {
     }
   }
 
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
   @font-face {
     font-family: 'Didone';
     src: url('/fonts/didone_variable.woff') format('woff');
