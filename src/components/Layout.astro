@@ -31,7 +31,7 @@ if (isAdminRoute && !session) {
     <title>{title}</title>
   </head>
   <body>
-    <main>
+    <main class="conteneur">
       {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
     </main>
     <header>
@@ -113,9 +113,17 @@ if (isAdminRoute && !session) {
 
   header {
     box-shadow: 0 2px 17px rgb(0 0 0 / 7%);
-    .conteneur {
-      margin: 0 auto;
-      max-width: var(--mw-desktop);
+  }
+
+  .conteneur {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--mw-desktop);
+
+    @media screen and (max-width: 1440px) {
+      padding-left: 8px;
+      padding-right: 8px;
+      max-width: 100%;
     }
   }
 

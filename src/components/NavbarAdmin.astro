@@ -20,17 +20,17 @@ const loginProvider =
           <div class="left-part">
             <a class="menu-item" href="/admin/article">
               <Icon pack="mdi" name="note-plus-outline" />
-              <span>Ajouter un article</span>
+              <span class="text">Ajouter un article</span>
             </a>
             <a class="menu-item" href="/admin/mes-articles">
               <Icon pack="mdi" name="note-check-outline" />
-              Mes articles
+              <span class="text">Mes articles</span>
             </a>
           </div>
           <div class="right-part">
             <SignOut>
               <Icon pack="mdi" name="logout" />
-              Déconnexion
+              <span class="text">Déconnexion</span>
             </SignOut>
           </div>
         </>
@@ -57,6 +57,9 @@ const loginProvider =
 
     .left-part {
       display: flex;
+      @media screen and (max-width: 766px) {
+        gap: 16px;
+      }
     }
 
     .menu-item,
@@ -70,9 +73,21 @@ const loginProvider =
       color: #fff;
       font-size: 16px;
       cursor: pointer;
+      @media screen and (max-width: 766px) {
+        min-width: 0px;
+      }
 
       svg {
-        max-width: 20px;
+        width: 20px;
+        @media screen and (max-width: 766px) {
+          width: 24px;
+        }
+      }
+
+      @media screen and (max-width: 766px) {
+        .text {
+          display: none;
+        }
       }
     }
 
@@ -91,6 +106,10 @@ const loginProvider =
         min-width: 117px;
         margin: 0;
         padding: 0;
+
+        @media screen and (max-width: 766px) {
+          min-width: 0;
+        }
       }
     }
   }
