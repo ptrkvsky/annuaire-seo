@@ -7,8 +7,11 @@ export interface SanityArticle {
   _type: 'article';
   _updatedAt?: Date;
   articleCategory: {
+    _id?: string;
     _ref: string;
     _type: 'reference';
+    title?: string;
+    slug?: SanitySlug;
   };
   articleUser: {
     _ref: string;

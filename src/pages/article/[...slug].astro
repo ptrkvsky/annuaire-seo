@@ -2,9 +2,6 @@
 import RenderPortableText from '@/components/RenderPortableText';
 import Layout from '@/components/Layout.astro';
 import { getArticleBySlug } from '@/services/article/getArticleBySlug';
-import { getElementById } from '@/services/article/getElementById';
-import type { SanityCategory } from '@/interfaces/SanityCategory';
-import getSisterCategories from '@/services/article/getSisterCategories';
 import { getCategoriesMenu } from '@/functions/getCategoriesMenu';
 
 const { slug } = Astro.params;
@@ -15,10 +12,60 @@ if (!article) {
   return Astro.redirect('/404');
 }
 
-const categoriesMenu = await getCategoriesMenu(article.articleCategory._ref);
+const categoriesMenu = article.articleCategory?._id
+  ? await getCategoriesMenu(article.articleCategory?._id)
+  : [];
 ---
 
 <Layout categoriesMenu={categoriesMenu} title={article.title}>
-  <h1>{article.title}</h1>
-  <RenderPortableText portableText={article.content} />
+  <div class="article wrapper">
+    <span class="category">{article.articleCategory?.title}</span>
+    <h1 class="title">{article.title}</h1>
+    <div class="wrapper-rich-text">
+      <RenderPortableText portableText={article.content} />
+    </div>
+  </div>
 </Layout>
+
+<style lang="scss" is:global>
+  .article {
+    &.wrapper {
+      margin-top: 88px;
+      @media screen and (max-width: 766px) {
+        margin-top: 24px;
+      }
+    }
+    .wrapper-rich-text {
+      max-width: 880px;
+      h3 {
+        margin: 24px 0;
+        font-size: 48px;
+        line-height: 1;
+        font-weight: 400;
+        @media screen and (max-width: 766px) {
+        }
+      }
+      h4 {
+        margin: 36px 0 24px;
+        font-size: 40px;
+        line-height: 48px;
+        font-weight: 400;
+        @media screen and (max-width: 766px) {
+        }
+      }
+    }
+    .category {
+      font-size: 14px;
+      text-transform: uppercase;
+      font-variation-settings: 'wght' 300;
+      letter-spacing: 3px;
+    }
+    .title {
+      font-size: 60px;
+      font-weight: 400;
+      @media screen and (max-width: 766px) {
+        font-size: 24px;
+      }
+    }
+  }
+</style>

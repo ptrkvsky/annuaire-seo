@@ -21,7 +21,7 @@ export async function getArticleBySlug(
     params.isActive = isActive;
   }
 
-  const query = `*[_type == "article" && slug.current == $slug ${isActiveQuery} ]`;
+  const query = `*[_type == "article" && slug.current == $slug ${isActiveQuery}]{title,isActive,content,imageMain{asset->{path,url}}, articleCategory->{title,slug,_ref, _id} }`;
 
   const client = sanityClient(sanityConfig);
   const articles = await client.fetch<SanityArticle[]>(query, params);
