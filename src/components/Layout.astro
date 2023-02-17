@@ -2,6 +2,7 @@
 import type { SanityCategory } from '@/interfaces/SanityCategory';
 import { getSession } from 'auth-astro';
 import { authOpts } from '../pages/api/auth/[...astroAuth]';
+import Footer from './Footer';
 import NavbarAdmin from './NavbarAdmin.astro';
 import NavbarGoogle from './NavbarGoogle.astro';
 
@@ -38,7 +39,7 @@ if (isAdminRoute && !session) {
       <NavbarAdmin session={session} />
       <NavbarGoogle categoriesMenu={categoriesMenu} />
     </header>
-    <footer><div class="conteneur">FOOTER</div></footer>
+    <Footer client:only />
   </body>
 </html>
 <style is:global lang="scss">
@@ -73,6 +74,10 @@ if (isAdminRoute && !session) {
   main {
     max-width: var(--mw-desktop);
     margin: 0 auto;
+  }
+
+  footer a {
+    text-decoration: none;
   }
 
   body {
