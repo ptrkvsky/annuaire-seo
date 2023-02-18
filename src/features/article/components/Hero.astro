@@ -1,0 +1,97 @@
+---
+import { Image } from '@astrojs/image/components';
+import type { SanityArticle } from '@/interfaces/SanityArticle';
+import convertDate from '@/utils/convertDate';
+
+interface Props {
+  article: SanityArticle;
+}
+const { article } = Astro.props;
+
+const vignette = article?.imageMain?.asset?.url;
+const alt = article?.imageMain?.alt || article.title;
+const datePost = article._createdAt && convertDate(article._createdAt);
+---
+
+<div class="hero">
+  <div class="wrapper-image">
+    {
+      vignette && (
+        <Image
+          src={vignette}
+          width={640}
+          height={427}
+          format="avif"
+          alt={alt}
+        />
+      )
+    }
+  </div>
+  <div class="wrapper-intro">
+    <p class="text">
+      {article.intro}
+    </p>
+    <time class="time" datetime={article._createdAt} class="date"
+      >{datePost}</time
+    >
+  </div>
+</div>
+
+<style lang="scss">
+  .hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+    margin: 72px 0;
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+      gap: 24px;
+      margin: 24px 0;
+    }
+  }
+
+  .wrapper-image {
+    min-width: 640px;
+    @media screen and (max-width: 1024px) {
+      min-width: 100%;
+    }
+  }
+
+  .wrapper-intro {
+    font-size: 32px;
+    line-height: 1.4;
+
+    .text {
+      position: relative;
+      top: -0.75em;
+      margin: 0;
+      &::first-letter {
+        font-family: var(--title);
+        font-weight: 400;
+        color: var(--is-it-cold);
+        font-size: 88px;
+        margin-right: 16px;
+        margin-top: 16px;
+        float: left;
+        line-height: 0.72;
+        display: block;
+      }
+
+      @media screen and (max-width: 1024px) {
+        top: 0;
+      }
+    }
+    .time {
+      display: block;
+      text-align: right;
+      font-size: 14px;
+    }
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+      gap: 16px;
+      font-size: 22px;
+    }
+  }
+</style>

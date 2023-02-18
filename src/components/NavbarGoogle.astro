@@ -8,7 +8,7 @@ export interface Props {
 }
 
 const { categoriesMenu } = Astro.props as Props;
-const categories = await getCategories();
+const categories = await getCategories({ isVisible: true });
 
 function createNavigation(categories: SanityCategory[]) {
   const roots = categories.filter((category) => !category.parent); // top-level categories

@@ -8,6 +8,7 @@ export interface SanityCategory {
   _updatedAt: Date;
   slug: SanitySlug;
   title: string;
+  isVisible: boolean;
   parent?: {
     _ref: string;
     _type: string;
