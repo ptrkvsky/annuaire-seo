@@ -1,0 +1,32 @@
+---
+import Card from '@/features/home/components/Card.astro';
+import type { SanityArticle } from '@/interfaces/SanityArticle';
+
+interface Props {
+  articles: SanityArticle[];
+}
+
+const { articles } = Astro.props;
+---
+
+<div class="grid-articles">
+  {
+    articles
+      .filter((article) => article.isActive)
+      .map((article) => <Card article={article} />)
+  }
+</div>
+
+<style lang="scss">
+  .grid-articles {
+    display: grid;
+    margin-top: 48px;
+    gap: 64px;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @media screen and (max-width: 766px) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+</style>

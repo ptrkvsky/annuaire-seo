@@ -1,4 +1,5 @@
 ---
+import GridArticles from '@/components/GridArticles.astro';
 import type { SanityArticle } from '@/interfaces/SanityArticle';
 import Card from './Card.astro';
 
@@ -27,27 +28,10 @@ const { articles } = Astro.props;
       idées et de nouvelles perspectives passionnantes.
     </p>
   </div>
-  <div class="grid-articles">
-    {
-      articles
-        .filter((article) => article.isActive)
-        .map((article) => <Card article={article} />)
-    }
-  </div>
+  <GridArticles articles={articles} />
 </section>
 
 <style lang="scss">
-  .grid-articles {
-    display: grid;
-    margin-top: 48px;
-    gap: 64px;
-    grid-template-columns: 1fr 1fr 1fr;
-
-    @media screen and (max-width: 766px) {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-  }
   .section-listing {
     margin: 120px 0;
     @media screen and (max-width: 766px) {
