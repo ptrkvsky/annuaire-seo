@@ -11,6 +11,7 @@ import SelectFile from '../SelectFile';
 import checkIsMinLength from '@/utils/checkIsMinLength';
 import transformHtmlToBlocks from '@/utils/transformHtmlToBlocks';
 import styles from './styles.module.scss';
+import '@/styles/buttons.scss';
 
 interface Props {
   article?: SanityArticle;
@@ -58,7 +59,7 @@ const FormArticle = ({ categories, article }: Props) => {
   }
 
   return (
-    <form onSubmit={postArticle}>
+    <form onSubmit={postArticle} className={styles.wrapperForm}>
       <div className={styles.wrapper}>
         <label htmlFor="titre">
           Titre
@@ -81,7 +82,11 @@ const FormArticle = ({ categories, article }: Props) => {
       />
       <BlockContent setFormState={setFormState} formState={formState} />
       <SelectFile formState={formState} setFormState={setFormState} />
-      <button className={styles.submit} type="submit" disabled={isDisabled}>
+      <button
+        className={`${styles.submit} button-50 mini`}
+        type="submit"
+        disabled={isDisabled}
+      >
         Envoyer
       </button>
       {mutation?.data && mutation?.data?.status !== 200 ? (

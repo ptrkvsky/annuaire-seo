@@ -2,6 +2,12 @@
   margin-bottom: 16px;
 }
 
+.wrapperForm {
+  @media screen and (max-width: 1024px) {
+    padding-bottom: 64px;
+  }
+}
+
 .input {
   display: block;
   margin-top: 4px;
@@ -25,7 +31,16 @@
   font-size: 15px;
 }
 
-.submit {
-  display: block;
-  margin-top: 16px;
+// on personnalise le label comme on veut
+.labelFile {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #000;
+  padding: 8px 16px;
+}
+
+// et on masque le input
+.inputFile {
+  display: none;
 }

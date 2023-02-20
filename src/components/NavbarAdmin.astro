@@ -2,8 +2,8 @@
 import type { Session } from '@auth/core/types';
 import { SignOut } from 'auth-astro/components';
 import { Icon } from 'astro-icon';
-import { Auth, SignIn } from 'auth-astro/components';
-import { authOpts } from '@/pages/api/auth/[...astroAuth]';
+import { SignIn } from 'auth-astro/components';
+
 interface Props {
   session: Session | null;
 }
