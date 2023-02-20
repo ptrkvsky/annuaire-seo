@@ -59,10 +59,12 @@ const FormArticle = ({ categories, article }: Props) => {
 
   return (
     <form onSubmit={postArticle}>
-      <div>
-        <label className={styles.wrapper}>
-          Titre de l'article
+      <div className={styles.wrapper}>
+        <label htmlFor="titre">
+          Titre
+          <span className={styles.info}>Balise H1 et titre de mon article</span>
           <input
+            id="titre"
             className={styles.input}
             type="text"
             value={formState.title}
@@ -71,7 +73,6 @@ const FormArticle = ({ categories, article }: Props) => {
             }
           />
         </label>
-        <span className={styles.info}>Info sup</span>
       </div>
       <SelectCategory
         categories={categories}
@@ -80,7 +81,7 @@ const FormArticle = ({ categories, article }: Props) => {
       />
       <BlockContent setFormState={setFormState} formState={formState} />
       <SelectFile formState={formState} setFormState={setFormState} />
-      <button type="submit" disabled={isDisabled}>
+      <button className={styles.submit} type="submit" disabled={isDisabled}>
         Envoyer
       </button>
       {mutation?.data && mutation?.data?.status !== 200 ? (

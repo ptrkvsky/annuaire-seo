@@ -1,6 +1,7 @@
 import type { SanityCategory } from '@/interfaces/SanityCategory';
 import useError from '../hooks/useError';
 import type { IFormState } from '../interfaces/IFormState';
+import styles from './FormArticle/styles.module.scss';
 
 interface Props {
   categories: SanityCategory[];
@@ -48,26 +49,36 @@ const SelectCategory = ({ formState, categories, setFormState }: Props) => {
   const sortedOptions = sortOptionsByLabel(options);
 
   return (
-    <p>
-      <select value={formState?.articleCategory} onChange={handleChange}>
-        <option value="0">Choisir une catégorie</option>
-        {sortedOptions.map((option) => {
-          if (!option.children) {
-            return (
-              <option key={option.value} value={option.value}>
-                {option.label}
+    <div className={styles.wrapper}>
+      <label htmlFor="categorie">
+        Catégorie
+        <select
+          id="categorie"
+          value={formState?.articleCategory}
+          onChange={handleChange}
+          className={styles.input}
+        >
+          <option value="0">Choisir une catégorie</option>
+          {sortedOptions.map((option) => {
+            if (!option.children) {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              );
+            }
+            return option.children.map((subOption) => (
+              <option key={subOption.value} value={subOption.value}>
+                {option.label} - {subOption.label}
               </option>
-            );
-          }
-          return option.children.map((subOption) => (
-            <option key={subOption.value} value={subOption.value}>
-              {option.label} - {subOption.label}
-            </option>
-          ));
-        })}
-      </select>
-      {errorForm?.errorCategory && <span>Veuillez saisir une catégorie</span>}
-    </p>
+            ));
+          })}
+        </select>
+        {errorForm?.errorCategory && (
+          <span className={styles.error}>Veuillez saisir une catégorie</span>
+        )}
+      </label>
+    </div>
   );
 };
 

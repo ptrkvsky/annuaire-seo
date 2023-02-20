@@ -1,16 +1,31 @@
+.wrapper {
+  margin-bottom: 16px;
+}
+
 .input {
   display: block;
+  margin-top: 4px;
   height: 32px;
   margin-top: 4px;
   border: 1px solid #606060;
   width: 100%;
   font-size: 16px;
   padding: 0 8px;
+  background-color: transparent;
 }
 
 .info {
-  margin-top: 4px;
   font-size: 14px;
   display: block;
   color: #505050;
+}
+
+.error {
+  color: red;
+  font-size: 15px;
+}
+
+.submit {
+  display: block;
+  margin-top: 16px;
 }
