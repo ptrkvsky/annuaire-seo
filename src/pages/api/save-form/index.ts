@@ -67,7 +67,6 @@ export const post: APIRoute = async ({ request }) => {
 
   if (postId && sanityUser?._id && formDataTitle && uploadImageFromUrl) {
     const slugArticle = slugify(formDataTitle as string);
-    console.log(formDataContent);
 
     const newArticle: SanityArticle = {
       isActive: sanityArticle?.isActive || false,
@@ -94,6 +93,9 @@ export const post: APIRoute = async ({ request }) => {
         current: slugArticle,
       },
       title: formDataTitle,
+      metaTitle: '',
+      metaDesc: '',
+      intro: '',
     };
 
     try {

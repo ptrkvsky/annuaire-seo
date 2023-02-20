@@ -58,11 +58,14 @@ const categoriesMenu = article.articleCategory?._id
 
     .wrapper-rich-text {
       max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
       font-size: 18px;
       line-height: 1.4;
       > p {
         margin-top: 0;
       }
+      h2,
       h3 {
         margin: 24px 0;
         font-size: 48px;
@@ -71,6 +74,12 @@ const categoriesMenu = article.articleCategory?._id
         @media screen and (max-width: 766px) {
           margin: 24px 0 16px;
           font-size: 24px;
+        }
+      }
+      h2 {
+        font-size: 52px;
+        @media screen and (max-width: 766px) {
+          font-size: 28px;
         }
       }
       h4 {

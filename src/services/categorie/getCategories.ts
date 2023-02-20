@@ -22,8 +22,6 @@ export async function getCategories(
 
   const query = `*[_type == "category" ${isVisibleQuery}]`;
 
-  console.log(query, paramsQuery);
-
   const client = sanityClient(sanityConfig);
   const categories = await client.fetch<SanityCategory[]>(query, paramsQuery);
 

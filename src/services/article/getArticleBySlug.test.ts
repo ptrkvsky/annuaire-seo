@@ -4,7 +4,6 @@ import { getArticleBySlug } from './getArticleBySlug';
 
 test('getArticleBySlug(article-test)', async () => {
   const article = await getArticleBySlug('article-test');
-  console.log(article);
   expect(article?.slug.current).toBe('article-test');
 });
 
