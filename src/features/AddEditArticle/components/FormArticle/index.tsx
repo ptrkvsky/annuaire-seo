@@ -12,6 +12,7 @@ import checkIsMinLength from '@/utils/checkIsMinLength';
 import transformHtmlToBlocks from '@/utils/transformHtmlToBlocks';
 import styles from './styles.module.scss';
 import '@/styles/buttons.scss';
+import type { SanityClient } from '@sanity/client';
 
 interface Props {
   article?: SanityArticle;
@@ -43,7 +44,10 @@ const FormArticle = ({ categories, article }: Props) => {
 
   function postArticle(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (isDisabled || !formState.imageMain) return;
+    if (isDisabled || (!formState.imageMain && !article?.imageMain)) {
+      console.log(isDisabled, formState.imageMain, article?.imageMain);
+      return;
+    }
 
     const htmlContent = transformHtmlToBlocks(formState.content);
 
@@ -52,7 +56,9 @@ const FormArticle = ({ categories, article }: Props) => {
     dataToPost.append('title', formState.title);
     dataToPost.append('articleCategory', formState.articleCategory);
     dataToPost.append('content', JSON.stringify(htmlContent));
-    dataToPost.append('imageMain', formState.imageMain);
+    if (formState.imageMain) {
+      dataToPost.append('imageMain', formState.imageMain);
+    }
 
     mutation.mutate(dataToPost);
     return;

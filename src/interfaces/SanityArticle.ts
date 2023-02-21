@@ -21,8 +21,8 @@ export interface SanityArticle {
     _type: 'image';
     alt?: string;
     asset: {
-      _ref: string;
-      _type: 'reference';
+      _ref?: string;
+      _type?: 'reference';
       path?: string;
       url?: string;
     };

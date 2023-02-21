@@ -2,15 +2,19 @@ import type { SanityCategory } from './../../interfaces/SanityCategory';
 import sanityClient from '@sanity/client';
 import { sanityConfig } from '../../config/sanityConfig';
 
+interface ParamsGetCategories {
+  isVisible: boolean | undefined;
+}
 /**
  * @params only get categories for menu display
  * @description retrun all Sanity Categories
  * @returns
  */
 export async function getCategories(
-  params = { isVisible: false }
+  params: ParamsGetCategories = { isVisible: false }
 ): Promise<SanityCategory[]> {
   let isVisibleQuery = '';
+
   const paramsQuery: {
     isVisible?: boolean;
   } = {};
@@ -20,8 +24,7 @@ export async function getCategories(
     paramsQuery.isVisible = params.isVisible;
   }
 
-  const query = `*[_type == "category" ${isVisibleQuery}]`;
-
+  const query = `*[_type == "category" && !(_id in path('drafts.**')) ${isVisibleQuery}]`;
   const client = sanityClient(sanityConfig);
   const categories = await client.fetch<SanityCategory[]>(query, paramsQuery);
 

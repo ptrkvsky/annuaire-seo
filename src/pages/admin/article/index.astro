@@ -1,9 +1,8 @@
 ---
 import Layout from '@/components/Layout.astro';
-import FormArticle from '@/features/AddEditArticle/components/FormArticle';
 import TemplateAddEditArticle from '@/features/AddEditArticle/components/TemplateAddEditArticle';
 import { getCategories } from '@/services/categorie/getCategories';
-const categories = await getCategories();
+const categories = await getCategories({ isVisible: undefined });
 ---
 
 <Layout title="Ajouter un article">

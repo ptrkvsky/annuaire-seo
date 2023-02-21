@@ -51,21 +51,28 @@ export const post: APIRoute = async ({ request }) => {
     formDataTitle,
     formDataArticleCategory,
     formDataContent,
-    file,
   } as ParamsCheckForm;
 
   checkForm(params);
-
-  const uploadImageFromUrl = await sanityClient.instance.assets.upload(
-    'image',
-    file
-  );
 
   const sanityArticle = formDataArticleId
     ? await getElementById<SanityArticle>(formDataArticleId as string)
     : undefined;
 
-  if (postId && sanityUser?._id && formDataTitle && uploadImageFromUrl) {
+  let uploadImageFromUrl = null;
+  let asset = sanityArticle?.imageMain.asset;
+  if (file) {
+    uploadImageFromUrl = await sanityClient.instance.assets.upload(
+      'image',
+      file
+    );
+    asset = {
+      _ref: uploadImageFromUrl._id,
+      _type: 'reference',
+    };
+  }
+
+  if (postId && sanityUser?._id && formDataTitle) {
     const slugArticle = slugify(formDataTitle as string);
 
     const newArticle: SanityArticle = {
@@ -78,10 +85,7 @@ export const post: APIRoute = async ({ request }) => {
       },
       imageMain: {
         _type: 'image',
-        asset: {
-          _ref: uploadImageFromUrl._id,
-          _type: 'reference',
-        },
+        asset,
       },
       articleUser: {
         _ref: sanityUser._id,
@@ -99,10 +103,11 @@ export const post: APIRoute = async ({ request }) => {
     };
 
     try {
-      await sanityClient.instance.createOrReplace(newArticle);
+      // await sanityClient.instance.createOrReplace(newArticle);
       return new Response(
         JSON.stringify({
           message: 'Your name was: ',
+          uploadImageFromUrl,
         }),
         {
           status: 200,

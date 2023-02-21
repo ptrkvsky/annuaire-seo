@@ -5,7 +5,7 @@ export interface ParamsCheckForm {
   formDataTitle: string;
   formDataArticleCategory: string;
   formDataContent: string;
-  file: Buffer;
+  file?: Buffer;
 }
 
 const MIN_LENGTH_TITLE = 3;
@@ -13,8 +13,8 @@ const MIN_LENGTH_TITLE = 3;
 export default function checkForm({
   formDataTitle,
   formDataArticleCategory,
-  formDataContent,
   file,
+  formDataContent,
 }: ParamsCheckForm) {
   const errorMessage: IErrorMessage = {};
 
@@ -31,10 +31,6 @@ export default function checkForm({
   // if (!isContentValid) {
   //   errorMessage.content = "Le contenu n'est pas assez long";
   // }
-
-  if (!file) {
-    errorMessage.imageMain = 'Une image est obligatoire';
-  }
 
   if (Object.keys(errorMessage).length) {
     return new Response(JSON.stringify({ message: errorMessage }), {
