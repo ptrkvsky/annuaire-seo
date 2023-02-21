@@ -3,9 +3,6 @@ import Layout from '@/components/Layout.astro';
 import TemplateAddEditArticle from '@/features/AddEditArticle/components/TemplateAddEditArticle';
 import { getArticleBySlug } from '@/services/article/getArticleBySlug';
 import { getCategories } from '@/services/categorie/getCategories';
-import sanity from '@/libs/sanity/sanityClient';
-import { sanityConfig } from '@/config/sanityConfig';
-import sanityClient from '@sanity/client';
 
 const { slug } = Astro.params;
 const article = slug && (await getArticleBySlug(slug));
@@ -15,7 +12,6 @@ if (!article) {
 }
 
 const selectCategories = await getCategories({ isVisible: undefined });
-console.log(article);
 ---
 
 <Layout title="Editer un article">

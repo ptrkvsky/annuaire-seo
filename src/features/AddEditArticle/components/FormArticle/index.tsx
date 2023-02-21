@@ -29,7 +29,7 @@ const FormArticle = ({ categories, article }: Props) => {
   const [formState, setFormState] = useState<IFormState>({
     articleId: article?._id,
     title: article?.title || '',
-    articleCategory: article?.articleCategory._ref || '',
+    articleCategory: article?.articleCategory._id || '',
     content: contentHTML || '',
   });
 
@@ -45,7 +45,6 @@ const FormArticle = ({ categories, article }: Props) => {
   function postArticle(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (isDisabled || (!formState.imageMain && !article?.imageMain)) {
-      console.log(isDisabled, formState.imageMain, article?.imageMain);
       return;
     }
 

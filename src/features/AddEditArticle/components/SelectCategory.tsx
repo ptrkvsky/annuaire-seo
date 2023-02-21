@@ -1,8 +1,4 @@
 import type { SanityCategory } from '@/interfaces/SanityCategory';
-import sanityClient from '@/libs/sanity/sanityClient';
-import sanity from '@/libs/sanity/sanityClient';
-import type { SanityClient } from '@sanity/client';
-import { useQuery } from 'react-query';
 import useError from '../hooks/useError';
 import type { IFormState } from '../interfaces/IFormState';
 import styles from './FormArticle/styles.module.scss';

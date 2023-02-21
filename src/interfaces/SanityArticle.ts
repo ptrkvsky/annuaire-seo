@@ -22,7 +22,7 @@ export interface SanityArticle {
     alt?: string;
     asset: {
       _ref?: string;
-      _type?: 'reference';
+      _type?: 'reference' | undefined;
       path?: string;
       url?: string;
     };
