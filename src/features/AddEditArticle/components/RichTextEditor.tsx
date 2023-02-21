@@ -7,7 +7,11 @@ interface Props {
   setFormState: React.Dispatch<React.SetStateAction<IFormState>>;
 }
 
-const toolbarOptions = [['bold', 'italic'], [{ header: [2, 3, 4, 5, 6] }]];
+const toolbarOptions = [
+  ['link', 'bold', 'italic'],
+  [{ header: [2, 3, 4, 5, 6] }],
+  [{ list: 'ordered' }, { list: 'bullet' }],
+];
 
 const RichTextEditor = ({ formState, setFormState }: Props) => {
   const [value, setValue] = useState(
