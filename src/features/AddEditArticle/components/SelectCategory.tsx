@@ -56,7 +56,7 @@ const SelectCategory = ({ formState, categories, setFormState }: Props) => {
           id="categorie"
           value={formState?.articleCategory}
           onChange={handleChange}
-          className={styles.input}
+          className={`${styles.input} ${styles.mini}`}
         >
           <option value="0">Choisir une catégorie</option>
           {sortedOptions.map((option) => {

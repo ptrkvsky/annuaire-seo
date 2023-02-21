@@ -18,6 +18,16 @@
   font-size: 16px;
   padding: 0 8px;
   background-color: transparent;
+
+  &.mini {
+    max-width: 450px;
+  }
+
+  &.textArea {
+    min-height: 80px;
+    font-family: var(--body);
+    padding: 4px 8px;
+  }
 }
 
 .info {

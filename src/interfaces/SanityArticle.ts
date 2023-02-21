@@ -20,7 +20,7 @@ export interface SanityArticle {
   imageMain: {
     _type: 'image';
     alt?: string;
-    asset: {
+    asset?: {
       _ref?: string;
       _type?: 'reference' | undefined;
       path?: string;

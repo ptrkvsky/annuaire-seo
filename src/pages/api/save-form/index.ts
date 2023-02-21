@@ -45,6 +45,9 @@ export const post: APIRoute = async ({ request }) => {
   const formDataTitle = formData.get('title') as string;
   const formDataArticleCategory = formData.get('articleCategory') as string;
   const formDataContent = formData.get('content') as string;
+  const formDataMetaTitle = formData.get('metaTitle') as string;
+  const formDataMetaDesc = formData.get('metaDesc') as string;
+  const formDataIntro = formData.get('intro') as string;
   const file = await getFileFromField(formData, 'imageMain');
 
   const params = {
@@ -97,16 +100,17 @@ export const post: APIRoute = async ({ request }) => {
         current: slugArticle,
       },
       title: formDataTitle,
-      metaTitle: '',
-      metaDesc: '',
-      intro: '',
+      metaTitle: formDataMetaTitle,
+      metaDesc: formDataMetaDesc,
+      intro: formDataIntro,
     };
 
     try {
-      // await sanityClient.instance.createOrReplace(newArticle);
+      await sanityClient.instance.createOrReplace(newArticle);
+
       return new Response(
         JSON.stringify({
-          message: 'Your name was: ',
+          article: newArticle,
           uploadImageFromUrl,
         }),
         {
