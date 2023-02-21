@@ -176,4 +176,35 @@ if (isAdminRoute && !session) {
     margin-top: 4px;
     margin-bottom: 16px;
   }
+
+  .ql-picker.ql-header {
+    .ql-picker-label::before {
+      content: 'Paragraphe' !important;
+    }
+    .ql-picker-label[data-value='1']::before {
+      content: 'Titre1' !important;
+    }
+    .ql-picker-label[data-value='2']::before {
+      content: 'Titre2' !important;
+    }
+  }
+
+  .ql-tooltip[data-mode='link']::before {
+    content: 'Entrer le lien' !important;
+  }
+  .ql-tooltip[data-mode='video']::before {
+    content: 'Entrez la vidéo' !important;
+  }
+  .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+    content: 'Sauvegarder' !important;
+  }
+  .ql-snow .ql-tooltip a.ql-action::after {
+    content: 'Modifier';
+  }
+  .ql-snow .ql-tooltip a.ql-remove::before {
+    content: 'Supprimer';
+  }
+  .ql-snow .ql-tooltip::before {
+    content: 'URL';
+  }
 </style>
