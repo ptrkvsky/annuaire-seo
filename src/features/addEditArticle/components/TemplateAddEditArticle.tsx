@@ -11,7 +11,11 @@ interface Props {
 const TemplateAddEditArticle = ({ article, categories }: Props) => {
   return (
     <div>
-      <h1>{article ? 'Editer votre article' : 'Ajouter un nouvel article'}</h1>
+      <h1>
+        {article
+          ? `Editer de l'article : ${article.title}`
+          : 'Ajouter un nouvel article'}
+      </h1>
       <QueryClientProvider>
         <FormArticle article={article} categories={categories} />
       </QueryClientProvider>

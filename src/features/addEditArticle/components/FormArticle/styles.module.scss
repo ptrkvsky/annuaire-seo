@@ -3,8 +3,9 @@
 }
 
 .wrapperForm {
+  margin-bottom: 80px;
   @media screen and (max-width: 1024px) {
-    padding-bottom: 64px;
+    margin-bottom: 64px;
   }
 }
 
@@ -36,18 +37,35 @@
   color: #505050;
 }
 
+.vignette {
+  display: block;
+  margin-top: 16px;
+  max-width: 380px;
+}
+
 .error {
   color: red;
   font-size: 15px;
 }
 
+.styles.wrapperSubmit {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+
+  @media screen and (max-width: 766px) {
+    flex-direction: column;
+  }
+}
+
 // on personnalise le label comme on veut
 .labelFile {
+  padding: 8px 16px;
+  margin-top: 4px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   border: 1px solid #000;
-  padding: 8px 16px;
 }
 
 // et on masque le input

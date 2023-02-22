@@ -76,6 +76,8 @@ const FormArticle = ({ categories, article }: Props) => {
     return;
   }
 
+  const vignette = article?.imageMain?.asset?.url;
+
   return (
     <form onSubmit={postArticle} className={styles.wrapperForm}>
       <div className={styles.wrapper}>
@@ -126,22 +128,41 @@ const FormArticle = ({ categories, article }: Props) => {
         setFormState={setFormState}
       />
       <BlockContent setFormState={setFormState} formState={formState} />
-      <SelectFile formState={formState} setFormState={setFormState} />
-      <button
-        className={`${styles.submit} button-50 mini`}
-        type="submit"
-        disabled={isDisabled}
-      >
-        Envoyer
-      </button>
-      {mutation?.data && mutation?.data?.status !== 200 ? (
-        <div>Une erreur est survenue</div>
-      ) : null}
-      {mutation?.data && mutation?.data?.status === 200 ? (
-        <div>Congratulations</div>
-      ) : null}
 
-      {!formState.intro ? <p>Une introduction est obligatoire</p> : null}
+      <div className={styles.wrapper}>
+        <label htmlFor="intro">
+          Vignette (PNG ou JPEG)
+          <span className={styles.info}>
+            Image présente en haut de l'article et sur les pages catégories.
+          </span>
+          <SelectFile formState={formState} setFormState={setFormState} />
+          {vignette ? (
+            <img
+              src={vignette}
+              alt={`illustration ${article?.title}`}
+              className={styles.vignette}
+            />
+          ) : null}
+        </label>
+      </div>
+
+      <div className={`${styles.wrapperSubmit}`}>
+        <button
+          className={`${styles.submit} button-50 mini`}
+          type="submit"
+          disabled={isDisabled}
+        >
+          Envoyer
+        </button>
+        {mutation?.data && mutation?.data?.status !== 200 ? (
+          <div>Une erreur est survenue</div>
+        ) : null}
+        {mutation?.data && mutation?.data?.status === 200 ? (
+          <div>Envoi effectué avec succès.</div>
+        ) : null}
+
+        {!formState.intro ? <p>Une introduction est obligatoire</p> : null}
+      </div>
     </form>
   );
 };

@@ -1,4 +1,3 @@
-// import Icon from 'astro-icon';
 import type { IFormState } from '../interfaces/IFormState';
 import styles from './FormArticle/styles.module.scss';
 
@@ -15,13 +14,10 @@ export default function SelectFile({ formState, setFormState }: Props) {
     }
   }
 
-  ('material-symbols:attach-file-add');
   return (
     <>
-      {/* <input className={styles.iptFile} type="file" /> */}
       <label htmlFor="file" className={styles.labelFile}>
         Choisir une image
-        {/* <Icon pack="mdi" name="attach-file-add-rounded" /> */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

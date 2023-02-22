@@ -13,23 +13,23 @@ const { articles } = Astro.props;
   <table class="table">
     <thead class="head">
       <tr>
-        <th class="head-col">Date</th>
+        <th class="head-col">Action</th>
         <th class="head-col">Catégorie</th>
         <th class="head-col">Titre</th>
-        <th class="head-col">Action</th>
+        <th class="head-col">Date</th>
       </tr>
     </thead>
     <tbody>
       {
         articles.map((article) => (
           <tr class="row">
-            <td class="body-col">
-              {article._createdAt && convertDate(article._createdAt)}
+            <td class="body-col center">
+              <a href={`/admin/article/${article.slug.current}`}>Modifier</a>
             </td>
             <td class="body-col">{article.articleCategory.title}</td>
             <td class="body-col">{article.title}</td>
-            <td class="body-col center">
-              <a href={`/admin/article/${article.slug.current}`}>Modifier</a>
+            <td class="body-col">
+              {article._createdAt && convertDate(article._createdAt)}
             </td>
           </tr>
         ))
