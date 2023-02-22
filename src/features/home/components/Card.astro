@@ -9,7 +9,7 @@ interface Props {
 
 const { article } = Astro.props;
 const content = article.content.slice(0, 1);
-const vignette = article.imageMain.asset.url;
+const vignette = article?.imageMain?.asset?.url;
 ---
 
 <article class="card">

@@ -15,8 +15,8 @@ import { getElementById } from '@/services/article/getElementById';
 import checkIsMinLength from '@/utils/checkIsMinLength';
 import checkForm, {
   ParamsCheckForm,
-} from '@/features/AddEditArticle/api/checkForm';
-import getFileFromField from '@/features/AddEditArticle/api/getFileFromField';
+} from '@/features/addEditArticle/api/checkForm';
+import getFileFromField from '@/features/addEditArticle/api/getFileFromField';
 
 export async function get({ params }: APIContext) {
   await deleteUser('newUser@gmail.com');

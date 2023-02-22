@@ -1,5 +1,5 @@
-import type { IFormState } from './../interfaces/IFormState';
-import type { IErrorForm } from './../interfaces/IErrorForm';
+import type { IFormState } from '../interfaces/IFormState';
+import type { IErrorForm } from '../interfaces/IErrorForm';
 import { useState, useEffect } from 'react';
 import checkError from '../functions/checkError';
 

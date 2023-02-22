@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
-import type { IFormState } from '@/features/AddEditArticle/interfaces/IFormState';
+import type { IFormState } from '@/features/addEditArticle/interfaces/IFormState';
 
 interface Props {
   formState: IFormState;

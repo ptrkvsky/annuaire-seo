@@ -1,0 +1,63 @@
+---
+import type { SanityArticle } from '@/interfaces/SanityArticle';
+import convertDate from '@/utils/convertDate';
+
+interface Props {
+  articles: SanityArticle[];
+}
+
+const { articles } = Astro.props;
+---
+
+<section>
+  <table class="table">
+    <thead class="head">
+      <tr>
+        <th class="head-col">Date</th>
+        <th class="head-col">Titre</th>
+        <th class="head-col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        articles.map((article) => (
+          <tr class="row">
+            <td class="body-col">
+              {article._createdAt && convertDate(article._createdAt)}
+            </td>
+            <td class="body-col">{article.title}</td>
+            <td class="body-col">
+              <a href={`/admin/article/${article.slug.current}`}>Modifier</a>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</section>
+
+<style lang="scss">
+  .table {
+    border-collapse: collapse;
+  }
+
+  .head {
+    background-color: #000;
+    color: #fff;
+    font-size: 22px;
+
+    .head-col {
+      padding: 8px 16px;
+      font-weight: 400;
+    }
+  }
+
+  .table .row,
+  .table .body-col {
+    padding: 8px 16px;
+  }
+
+  .table .row:nth-of-type(odd) {
+    background-color: #eeeeee;
+  }
+</style>

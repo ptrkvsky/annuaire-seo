@@ -1,4 +1,4 @@
-import FormArticle from '@/features/AddEditArticle/components/FormArticle';
+import FormArticle from '@/features/addEditArticle/components/FormArticle';
 import QueryClientProvider from '@/components/QueryClientProvider';
 import type { SanityArticle } from '@/interfaces/SanityArticle';
 import type { SanityCategory } from '@/interfaces/SanityCategory';

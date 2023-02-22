@@ -1,0 +1,14 @@
+---
+import ListingArticles from '@/features/adminListingArticles/components/ListingArticles/index.astro';
+import type { SanityArticle } from '@/interfaces/SanityArticle';
+
+interface Props {
+  articles: SanityArticle[];
+}
+
+const { articles } = Astro.props;
+---
+
+<h1>Mes articles</h1>
+<p>Liste de mes articles</p>
+<ListingArticles articles={articles} />

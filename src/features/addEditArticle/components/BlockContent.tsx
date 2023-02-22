@@ -1,5 +1,5 @@
 import CONST from '@/config/CONST';
-import type { IFormState } from '@/features/AddEditArticle/interfaces/IFormState';
+import type { IFormState } from '@/features/addEditArticle/interfaces/IFormState';
 import countWord from '@/utils/countWord';
 import RichTextEditor from './RichTextEditor';
 import styles from './FormArticle/styles.module.scss';

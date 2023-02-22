@@ -1,4 +1,4 @@
-import type { IErrorMessage } from './../interfaces/IErrorMessage';
+import type { IErrorMessage } from '../interfaces/IErrorMessage';
 import checkIsMinLength from '@/utils/checkIsMinLength';
 
 export interface ParamsCheckForm {

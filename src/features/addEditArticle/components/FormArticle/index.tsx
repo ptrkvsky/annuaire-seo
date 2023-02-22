@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import type { SanityCategory } from '@/interfaces/SanityCategory';
 import type { SanityArticle } from '@/interfaces/SanityArticle';
 import { toHTML } from '@portabletext/to-html';
-import SelectCategory from '@/features/AddEditArticle/components/SelectCategory';
+import SelectCategory from '@/features/addEditArticle/components/SelectCategory';
 import type { IFormState } from '../../interfaces/IFormState';
 import BlockContent from '../BlockContent';
 import SelectFile from '../SelectFile';
@@ -45,13 +45,17 @@ const FormArticle = ({ categories, article }: Props) => {
     });
   });
 
-  const isDisabled = !checkIsMinLength(formState.content) || mutation.isLoading;
+  const isDisabled =
+    !checkIsMinLength(formState.content) ||
+    mutation.isLoading ||
+    (!formState.imageMain && !article?.imageMain) ||
+    !formState.intro ||
+    !formState.metaTitle ||
+    !formState.metaDesc;
 
   function postArticle(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (isDisabled || (!formState.imageMain && !article?.imageMain)) {
-      return;
-    }
+    if (isDisabled) return;
 
     const htmlContent = transformHtmlToBlocks(formState.content);
 
@@ -111,7 +115,7 @@ const FormArticle = ({ categories, article }: Props) => {
         <label htmlFor="intro">
           Introduction
           <span className={styles.info}>
-            Premier paragraphe pour une meilleure présentation.
+            Premier paragraphe pour une meilleure présentation, environ 40 mots
           </span>
           <TextareaIntro formState={formState} setFormState={setFormState} />
         </label>
@@ -136,6 +140,8 @@ const FormArticle = ({ categories, article }: Props) => {
       {mutation?.data && mutation?.data?.status === 200 ? (
         <div>Congratulations</div>
       ) : null}
+
+      {!formState.intro ? <p>Une introduction est obligatoire</p> : null}
     </form>
   );
 };

@@ -1,4 +1,4 @@
-import type { IFormState } from './../interfaces/IFormState';
+import type { IFormState } from '../interfaces/IFormState';
 import { test, expect } from 'vitest';
 import checkError from './checkError';
 

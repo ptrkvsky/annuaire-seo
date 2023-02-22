@@ -5,6 +5,7 @@ import { getSession } from 'auth-astro';
 import { authOpts } from '@/pages/api/auth/[...astroAuth]';
 import { getArticlesUser } from '@/services/article/getArticlesUser';
 import { getUserByMail } from '@/services/user/getUserByMail';
+import TemplateAdminListingArticles from '@/features/adminListingArticles/components/TemplateAdminListingArticles.astro';
 
 let session = await getSession(Astro.request, authOpts);
 
@@ -21,18 +22,6 @@ if (!sanityUser?._id) {
 const articles = await getArticlesUser(sanityUser._id);
 ---
 
-<Layout title="Admin - Mes articles">
-  <h1>Mes articles</h1>
-  <p>Liste de mes articles</p>
-  <section>
-    {
-      articles.map((article) => (
-        <>
-          {article.title} :{' '}
-          <a href={`/admin/article/${article.slug.current}`}>EDIT</a>
-          <br />
-        </>
-      ))
-    }
-  </section>
+<Layout title={`Admin - Mes articles ${articles.length}`}>
+  <TemplateAdminListingArticles articles={articles} />
 </Layout>
