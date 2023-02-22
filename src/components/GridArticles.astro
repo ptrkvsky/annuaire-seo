@@ -7,10 +7,6 @@ interface Props {
 }
 
 const { articles } = Astro.props;
-
-articles.forEach((article) => {
-  console.log(article.isActive, article.title);
-});
 ---
 
 <div class="grid-articles">
