@@ -1,16 +1,15 @@
 ---
+import { authOpts } from '@/pages/api/auth/[...astroAuth]';
 import '@/styles/buttons.scss';
 import type { Session } from '@auth/core/types';
+import { getSession } from 'auth-astro';
 import { SignIn } from 'auth-astro/components';
-interface Props {
-  session: Session | null;
-}
-const { session } = Astro.props as Props;
+let session = await getSession(Astro.request, authOpts);
+
 const loginProvider =
   import.meta.env.MODE === 'development' ? 'github' : 'google';
 ---
 
-{console.log(session)}
 <section class="hero">
   <h1>
     Publiez gratuitement vos <span class="highlight">articles invités</span>
