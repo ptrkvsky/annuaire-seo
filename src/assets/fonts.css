@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Didone';
+  src: url('/fonts/didone_variable.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: optional;
+}
+@font-face {
+  font-family: 'Montreal';
+  src: url('/fonts/montreal.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: optional;
+}

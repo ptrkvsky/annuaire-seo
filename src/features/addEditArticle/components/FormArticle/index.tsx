@@ -129,22 +129,20 @@ const FormArticle = ({ categories, article }: Props) => {
       />
       <BlockContent setFormState={setFormState} formState={formState} />
 
-      <div className={styles.wrapper}>
-        <label htmlFor="intro">
-          Vignette (PNG ou JPEG)
-          <span className={styles.info}>
-            Image présente en haut de l'article et sur les pages catégories.
-          </span>
-          <SelectFile formState={formState} setFormState={setFormState} />
-          {vignette ? (
-            <img
-              src={vignette}
-              alt={`illustration ${article?.title}`}
-              className={styles.vignette}
-            />
-          ) : null}
-        </label>
-      </div>
+      <p className={styles.wrapper}>
+        Vignette (PNG ou JPEG)
+        <span className={styles.info}>
+          Image présente en haut de l'article et sur les pages catégories.
+        </span>
+        <SelectFile formState={formState} setFormState={setFormState} />
+        {vignette ? (
+          <img
+            src={vignette}
+            alt={`illustration ${article?.title}`}
+            className={styles.vignette}
+          />
+        ) : null}
+      </p>
 
       <div className={`${styles.wrapperSubmit}`}>
         <button
