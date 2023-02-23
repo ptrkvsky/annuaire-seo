@@ -8,7 +8,7 @@ import { sanityConfig } from '../../config/sanityConfig';
  * @returns
  */
 export async function getArticlesUser(refUser: string) {
-  const query = `*[_type == "article" && articleUser._ref == $refUser]{_createdAt,_id,intro,metaTitle,metaDesc,title,isActive,content,slug,imageMain{asset->{path,url}}, articleCategory->{title,slug,_ref, _id} }`;
+  const query = `*[_type == "article" && !(_id in path('drafts.**')) && articleUser._ref == $refUser]{_createdAt,_id,intro,metaTitle,metaDesc,title,isActive,content,slug,imageMain{asset->{path,url}}, articleCategory->{title,slug,_ref, _id} }`;
   const params = { refUser };
   const client = sanityClient(sanityConfig);
   const articles = await client.fetch<SanityArticle[]>(query, params);
