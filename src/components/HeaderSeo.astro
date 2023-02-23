@@ -1,0 +1,12 @@
+---
+import type { ISeo } from '@/interfaces/ISeo';
+
+export interface Props {
+  metaSeo: ISeo;
+}
+
+const { metaSeo } = Astro.props as Props;
+---
+
+{metaSeo?.metaTitle && <title>{metaSeo.metaTitle}</title>}
+<meta name="description" content="La meta description de la page." />

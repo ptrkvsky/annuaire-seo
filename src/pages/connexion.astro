@@ -3,12 +3,18 @@ import Layout from '@/components/Layout.astro';
 import type { Session } from '@auth/core/types';
 import { Auth, SignIn } from 'auth-astro/components';
 import { authOpts } from '@/pages/api/auth/[...astroAuth]';
+import type { ISeo } from '@/interfaces/ISeo';
 
 const loginProvider =
   import.meta.env.MODE === 'development' ? 'github' : 'google';
+
+const metaSeo: ISeo = {
+  metaTitle: 'Connexion - Article invité',
+  metaDescription: '',
+};
 ---
 
-<Layout title="Authentification">
+<Layout metaSeo={metaSeo}>
   <Auth authOpts={authOpts}>
     {
       (session: Session | null) => (

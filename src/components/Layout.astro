@@ -10,13 +10,15 @@ import { authOpts } from '../pages/api/auth/[...astroAuth]';
 import Footer from './Footer';
 import NavbarAdmin from './NavbarAdmin.astro';
 import NavbarGoogle from './NavbarGoogle.astro';
+import type { ISeo } from '@/interfaces/ISeo';
+import HeaderSeo from './HeaderSeo.astro';
 
 export interface Props {
-  title: string;
   categoriesMenu?: SanityCategory[];
+  metaSeo: ISeo;
 }
 
-const { title, categoriesMenu } = Astro.props as Props;
+const { categoriesMenu, metaSeo } = Astro.props as Props;
 const isAdminRoute = Astro.url.pathname.includes('/admin/');
 let session = await getSession(Astro.request, authOpts);
 let accessGranted = true;
@@ -34,7 +36,7 @@ if (isAdminRoute && !session) {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <HeaderSeo metaSeo={metaSeo} />
   </head>
   <body>
     <main class="conteneur">

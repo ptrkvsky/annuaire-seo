@@ -2,6 +2,7 @@
 import GridArticles from '@/components/GridArticles.astro';
 import Layout from '@/components/Layout.astro';
 import { getCategoriesMenu } from '@/functions/getCategoriesMenu';
+import type { ISeo } from '@/interfaces/ISeo';
 import getArticlesByCategoryId from '@/services/article/getArticlesByCategoryId';
 import getCategoryBySlug from '@/services/categorie/getCategoryBySlug';
 
@@ -15,9 +16,14 @@ if (!category) {
 
 const articles = await getArticlesByCategoryId(category._id);
 const categoriesMenu = await getCategoriesMenu(category._id);
+
+const metaSeo: ISeo = {
+  metaTitle: `Découvrez les articles invités de notre rubrique ${category.title}`,
+  metaDescription: '',
+};
 ---
 
-<Layout categoriesMenu={categoriesMenu} title={category.title}>
+<Layout categoriesMenu={categoriesMenu} metaSeo={metaSeo}>
   <div class="main-wrapper">
     <h1>{category.title}</h1>
     {
