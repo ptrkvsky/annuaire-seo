@@ -1,5 +1,6 @@
-import type { IFormState } from '../interfaces/IFormState';
-import styles from './FormArticle/styles.module.scss';
+import type { IFormState } from '../../interfaces/IFormState';
+import styles from '../FormArticle/styles.module.scss';
+import stylesFile from './selectFile.module.scss';
 
 interface Props {
   formState: IFormState;
@@ -13,6 +14,8 @@ export default function SelectFile({ formState, setFormState }: Props) {
       setFormState({ ...formState, imageMain: file });
     }
   }
+
+  const fileName = formState?.imageMain?.name;
 
   return (
     <>
@@ -36,6 +39,9 @@ export default function SelectFile({ formState, setFormState }: Props) {
         type="file"
         onChange={handleChange}
       />
+      {fileName && (
+        <span className={stylesFile.labelFichier}>Fichier : {fileName} </span>
+      )}
     </>
   );
 }

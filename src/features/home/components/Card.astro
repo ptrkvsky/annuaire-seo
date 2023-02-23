@@ -10,8 +10,6 @@ interface Props {
 const { article } = Astro.props;
 const content = article.content.slice(0, 1);
 const vignette = article?.imageMain?.asset?.url;
-
-console.log(article);
 ---
 
 <article class="card">

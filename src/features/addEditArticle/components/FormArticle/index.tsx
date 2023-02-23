@@ -150,14 +150,16 @@ const FormArticle = ({ categories, article }: Props) => {
           type="submit"
           disabled={isDisabled}
         >
-          Envoyer
+          {mutation?.isLoading ? 'Chargement' : 'Envoyer'}
         </button>
         {mutation?.data && mutation?.data?.status !== 200 ? (
           <div>Une erreur est survenue</div>
         ) : null}
         {mutation?.data && mutation?.data?.status === 200 ? (
-          <div>Envoi effectué avec succès.</div>
+          <div className="success-msg">Envoi effectué avec succès.</div>
         ) : null}
+
+        <div className="success-msg">✔️ Envoi effectué avec succès.</div>
 
         {!formState.intro ? <p>Une introduction est obligatoire</p> : null}
       </div>

@@ -1,0 +1,8 @@
+.labelFichier {
+  margin-left: 8px;
+
+  @media screen and (max-width: 766px) {
+    display: block;
+    margin-left: 0;
+  }
+}

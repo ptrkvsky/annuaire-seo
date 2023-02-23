@@ -1,0 +1,25 @@
+.info-msg,
+.success-msg,
+.warning-msg,
+.error-msg {
+  margin: 16px 0;
+  padding: 8px 16px;
+  border-radius: 3px 3px 3px 3px;
+  display: inline-block;
+}
+.info-msg {
+  color: #059;
+  background-color: #bef;
+}
+.success-msg {
+  color: #270;
+  background-color: #dff2bf;
+}
+.warning-msg {
+  color: #9f6000;
+  background-color: #feefb3;
+}
+.error-msg {
+  color: #d8000c;
+  background-color: #ffbaba;
+}
