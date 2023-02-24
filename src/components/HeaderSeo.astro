@@ -1,12 +1,19 @@
 ---
 import type { ISeo } from '@/interfaces/ISeo';
+import type { Graph } from 'schema-dts';
 
 export interface Props {
   metaSeo: ISeo;
+  schema?: Graph;
 }
 
-const { metaSeo } = Astro.props as Props;
+const { metaSeo, schema } = Astro.props as Props;
 ---
 
 {metaSeo?.metaTitle && <title>{metaSeo.metaTitle}</title>}
 <meta name="description" content="La meta description de la page." />
+{
+  schema && (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  )
+}

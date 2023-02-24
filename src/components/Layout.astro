@@ -12,13 +12,16 @@ import NavbarAdmin from './NavbarAdmin.astro';
 import NavbarGoogle from './NavbarGoogle.astro';
 import type { ISeo } from '@/interfaces/ISeo';
 import HeaderSeo from './HeaderSeo.astro';
+import type { Graph } from 'schema-dts';
 
 export interface Props {
   categoriesMenu?: SanityCategory[];
   metaSeo: ISeo;
+  schema?: Graph;
 }
 
-const { categoriesMenu, metaSeo } = Astro.props as Props;
+const { categoriesMenu, metaSeo, schema } = Astro.props as Props;
+
 const isAdminRoute = Astro.url.pathname.includes('/admin/');
 let session = await getSession(Astro.request, authOpts);
 let accessGranted = true;
@@ -36,7 +39,7 @@ if (isAdminRoute && !session) {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <HeaderSeo metaSeo={metaSeo} />
+    <HeaderSeo schema={schema} metaSeo={metaSeo} />
   </head>
   <body>
     <main class="conteneur">

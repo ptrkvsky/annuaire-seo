@@ -5,6 +5,8 @@ import { getArticleBySlug } from '@/services/article/getArticleBySlug';
 import { getCategoriesMenu } from '@/functions/getCategoriesMenu';
 import Hero from '@/features/article/components/Hero.astro';
 import Aside from '@/features/article/components/Aside.astro';
+import type { ISeo } from '@/interfaces/ISeo';
+import { getGraphBlogPost } from '@/helpers/getGraphBlogPost';
 
 const { slug } = Astro.params;
 
@@ -17,9 +19,17 @@ if (!article) {
 const categoriesMenu = article.articleCategory?._id
   ? await getCategoriesMenu(article.articleCategory?._id)
   : [];
+
+const metaTitle = article?.metaTitle || article.title;
+const metaSeo: ISeo = {
+  metaTitle: metaTitle,
+  metaDescription: article?.metaDesc || '',
+};
+
+const graphPost = getGraphBlogPost(article);
 ---
 
-<Layout categoriesMenu={categoriesMenu} title={article.title}>
+<Layout schema={graphPost} categoriesMenu={categoriesMenu} metaSeo={metaSeo}>
   <div class="article wrapper">
     <div id="breadcrumb">
       <span class="category">Accueil / {article.articleCategory?.title}</span>
