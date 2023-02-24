@@ -159,8 +159,6 @@ const FormArticle = ({ categories, article }: Props) => {
           <div className="success-msg">Envoi effectué avec succès.</div>
         ) : null}
 
-        <div className="success-msg">✔️ Envoi effectué avec succès.</div>
-
         {!formState.intro ? <p>Une introduction est obligatoire</p> : null}
       </div>
     </form>
