@@ -1,4 +1,5 @@
 ---
+import { seoConfig } from '@/config';
 import type { ISeo } from '@/interfaces/ISeo';
 import type { Graph } from 'schema-dts';
 
@@ -21,7 +22,12 @@ const { metaSeo, schema } = Astro.props as Props;
   )
 }
 
-{metaSeo.metaImage && <meta property="og:image" content={metaSeo.metaImage} />}
+{metaSeo?.metaImage && <meta property="og:image" content={metaSeo.metaImage} />}
+{
+  metaSeo?.canonical && (
+    <link rel="canonical" href={`${seoConfig.baseURL}${metaSeo.canonical}`} />
+  )
+}
 
 {
   schema && (

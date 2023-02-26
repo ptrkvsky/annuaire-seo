@@ -1,5 +1,6 @@
 ---
 import Layout from '@/components/Layout.astro';
+import { seoConfig } from '@/config';
 import Hero from '@/features/home/components/Hero.astro';
 import ListingArticles from '@/features/home/components/ListingArticles.astro';
 import type { ISeo } from '@/interfaces/ISeo';
@@ -12,6 +13,7 @@ const metaSeo: ISeo = {
     'Article invité - Écrivez pour nous et augmentez votre visibilité en ligne',
   metaDescription:
     "Écrivez des articles invités pour notre site web et profitez d'une plus grande visibilité en ligne. Notre plateforme de guest blogging est ouverte à tous les écrivains et blogueurs. Soumettez votre contenu dès maintenant pour rejoindre notre communauté !",
+  canonical: '/',
 };
 ---
 

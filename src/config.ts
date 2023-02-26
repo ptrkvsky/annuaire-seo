@@ -4,7 +4,7 @@
 export const seoConfig = {
   author: 'Johan Petrikovsky',
   baseURL: import.meta.env.PUBLIC_URL, // Change this to your production URL.
-  productionURL: 'https://article-invité.com', // Change this to your production URL.
+  productionURL: import.meta.env.PUBLIC_URL, // Change this to your production URL.
   description:
     'Article invité - Écrivez pour nous et augmentez votre visibilité en ligne.', // Change this to be your website's description.
   type: 'website',

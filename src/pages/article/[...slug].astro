@@ -25,6 +25,7 @@ const metaSeo: ISeo = {
   metaTitle: metaTitle,
   metaDescription: article?.metaDesc || '',
   metaImage: article?.imageMain?.asset?.url,
+  canonical: `/article/${article.slug.current}`,
 };
 
 const graphPost = getGraphBlogPost(article);

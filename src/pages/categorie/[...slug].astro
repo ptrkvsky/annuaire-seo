@@ -19,8 +19,10 @@ const categoriesMenu = await getCategoriesMenu(category._id);
 
 const metaSeo: ISeo = {
   metaTitle: `Découvrez les articles invités de notre rubrique ${category.title}`,
-  metaDescription: '',
+  metaDescription: `Informations, astuces et conseils. Tout savoir sur : ${category.title}`,
+  canonical: `/categorie/${category.slug.current}`,
 };
+console.log(metaSeo);
 ---
 
 <Layout categoriesMenu={categoriesMenu} metaSeo={metaSeo}>

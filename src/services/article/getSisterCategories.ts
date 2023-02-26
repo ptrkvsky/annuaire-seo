@@ -7,7 +7,7 @@ import sanityClient from '@sanity/client';
  * @param idCategory - string
  */
 export default async function getSisterCategories(idCategory: string) {
-  const query = `*[_type == "category" && parent._ref== $idCategory]`;
+  const query = `*[_type == "category" && !(_id in path('drafts.**')) && parent._ref== $idCategory]`;
   const params = { idCategory };
   const client = sanityClient(sanityConfig);
   const categories = await client.fetch<SanityCategory[]>(query, params);

@@ -1,0 +1,69 @@
+---
+import Layout from '@/components/Layout.astro';
+import type { ISeo } from '@/interfaces/ISeo';
+const metaSeo: ISeo = {
+  metaTitle: 'Mentions légales du site Article invité',
+  metaDescription:
+    'Mentions légales du site Article invité. Retrouvez nos informations de contact',
+};
+---
+
+<Layout metaSeo={metaSeo}>
+  <div class="mini-conteneur">
+    <h1>MENTIONS LÉGALES</h1>
+
+    <p>
+      Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour
+      la confiance en l'économie numérique, il est précisé aux utilisateurs du
+      site Article invité l'identité des différents intervenants dans le cadre
+      de sa réalisation et de son suivi.
+    </p>
+
+    <h2>Edition du site</h2>
+
+    <p>
+      Le présent site, accessible à l’URL article-invite.com (le « Site »), est
+      édité par :
+    </p>
+
+    <p>
+      Pierre René, résidant 7 avenue des coteaux 31810 Venerque, de nationalité
+      Française (France), né(e) le 28/11/1984,
+    </p>
+
+    <h2>Hébergement</h2>
+
+    <p>
+      Le Site est hébergé par la société Vercel, situé 340 S Lemon Ave Walnut,
+      CA 91789, (contact téléphonique ou email : +33615373596).
+    </p>
+
+    <h2>Directeur de publication</h2>
+
+    <p>Le Directeur de la publication du Site est Pierre René.</p>
+
+    <h2>Nous contacter</h2>
+
+    <ul>
+      <li>Par téléphone : +33615373596</li>
+      <li>Par email : johan@developpeur-web.tech</li>
+      <li>Par courrier : 7 avenue des coteaux 31810 Venerque</li>
+    </ul>
+
+    <h2>Données personnelles</h2>
+
+    <p>
+      Le traitement de vos données à caractère personnel est régi par notre
+      Charte du respect de la vie privée, disponible depuis la section "Charte
+      de Protection des Données Personnelles", conformément au Règlement Général
+      sur la Protection des Données 2016/679 du 27 avril 2016 («RGPD»).
+    </p>
+  </div>
+</Layout>
+
+<style lang="scss">
+  .mini-conteneur {
+    max-width: 840px;
+    text-align: justify;
+  }
+</style>
