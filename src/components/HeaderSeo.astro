@@ -11,7 +11,18 @@ const { metaSeo, schema } = Astro.props as Props;
 ---
 
 {metaSeo?.metaTitle && <title>{metaSeo.metaTitle}</title>}
-<meta name="description" content="La meta description de la page." />
+
+{
+  metaSeo?.metaDescription && (
+    <>
+      <meta name="description" content={metaSeo?.metaDescription} />
+      <meta property="og:description" content={metaSeo?.metaDescription} />
+    </>
+  )
+}
+
+{metaSeo.metaImage && <meta property="og:image" content={metaSeo.metaImage} />}
+
 {
   schema && (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -24,6 +24,7 @@ const metaTitle = article?.metaTitle || article.title;
 const metaSeo: ISeo = {
   metaTitle: metaTitle,
   metaDescription: article?.metaDesc || '',
+  metaImage: article?.imageMain?.asset?.url,
 };
 
 const graphPost = getGraphBlogPost(article);
