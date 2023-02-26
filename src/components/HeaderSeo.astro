@@ -9,6 +9,9 @@ export interface Props {
 }
 
 const { metaSeo, schema } = Astro.props as Props;
+const metaImage =
+  metaSeo?.metaImage ||
+  'https://cdn.sanity.io/images/3nvlsugj/production/fc4a8a703219770244df213783540aee1307cee3-640x427.jpg';
 ---
 
 {metaSeo?.metaTitle && <title>{metaSeo.metaTitle}</title>}
@@ -22,7 +25,7 @@ const { metaSeo, schema } = Astro.props as Props;
   )
 }
 
-{metaSeo?.metaImage && <meta property="og:image" content={metaSeo.metaImage} />}
+{(<meta property="og:image" content={metaImage} />)}
 {
   metaSeo?.canonical && (
     <link rel="canonical" href={`${seoConfig.baseURL}${metaSeo.canonical}`} />
