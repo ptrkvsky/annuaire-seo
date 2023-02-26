@@ -29,6 +29,8 @@ let accessGranted = true;
 if (isAdminRoute && !session) {
   accessGranted = false;
 }
+
+const isHome = Astro.url.pathname === '/';
 ---
 
 <!DOCTYPE html>
@@ -45,7 +47,7 @@ if (isAdminRoute && !session) {
       {accessGranted ? <slot /> : <h1>Rien à voir ici</h1>}
     </main>
     <header>
-      <NavbarAdmin session={session} />
+      {!isHome && <NavbarAdmin session={session} />}
       <NavbarGoogle categoriesMenu={categoriesMenu} />
     </header>
     <Footer client:only />

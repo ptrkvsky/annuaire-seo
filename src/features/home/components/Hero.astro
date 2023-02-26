@@ -1,7 +1,6 @@
 ---
 import { authOpts } from '@/pages/api/auth/[...astroAuth]';
 import '@/styles/buttons.scss';
-import type { Session } from '@auth/core/types';
 import { getSession } from 'auth-astro';
 import { SignIn } from 'auth-astro/components';
 let session = await getSession(Astro.request, authOpts);
