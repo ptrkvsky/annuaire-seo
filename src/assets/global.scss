@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'Didone';
+  src: url('/fonts/didone_variable.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montreal';
+  src: url('/fonts/PPNeueMontreal-Variable.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --title: Didone, Poppins, -apple-system, BlinkMacSystemFont, Arial Black,
     Arial Bold, Arial, sans-serif;
